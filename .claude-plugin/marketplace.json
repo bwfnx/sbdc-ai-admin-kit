@@ -1,0 +1,12 @@
+{
+  "name": "sbdc-ai-admin",
+  "description": "SBDC AI Admin Kit by Brandon Mason (Maryland SBDC).",
+  "owner": { "name": "Brandon Mason" },
+  "plugins": [
+    {
+      "name": "sbdc-ai-admin-kit",
+      "source": "./",
+      "description": "The Skill Standard, a staff-guide generator, a cold-test method, and gpt-to-skill for migrating custom GPTs."
+    }
+  ]
+}

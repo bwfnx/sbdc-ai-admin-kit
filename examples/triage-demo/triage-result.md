@@ -1,5 +1,7 @@
 # GPT Triage — my-gpts.md (5 GPTs)
 
+Note: gpt-to-skill was tightened again after this run, by the self-test (examples/gpt-to-skill-self-test.md). This file shows the run as it happened.
+
 | # | GPT | Purpose (one line) | Verdict | Flags | Order |
 |---|---|---|---|---|---|
 | 1 | Client Notes Formatter | Formats advisor session notes into a fixed CRM-ready structure | Skill | `knowledge`, `client-data`, `no-refusals` | 1 |

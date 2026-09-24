@@ -1,5 +1,7 @@
 # Scorecard — converting "Transcript to Action Plan & Client Email v 2.0"
 
+Note: gpt-to-skill was tightened again after this run, by the self-test (examples/gpt-to-skill-self-test.md). This file shows the run as it happened.
+
 **Result: FAIL, narrowly.** Every loss that changes what the skill does is flagged in the ledger. Two small descriptive phrases were trimmed without a note, and the pass bar allows no unflagged losses. Four runs of the converter also gave noticeably different results. Check the items at the end by hand on every conversion.
 
 **What went in:** the GPT's Instructions, Description, and Conversation starter, plus one Knowledge file (milestone-mapping-reference.md). **What was held back:** the GPT's other two Knowledge files — one *is* the original skill and the other is a copy of the instructions, so including them would have handed the converter the answer.

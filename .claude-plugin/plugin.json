@@ -1,0 +1,6 @@
+{
+  "name": "sbdc-ai-admin-kit",
+  "description": "For the person running AI at an SBDC: the Skill Standard, a staff-guide generator, a cold-test method, and gpt-to-skill, which triages custom GPTs and converts them to skills one at a time.",
+  "version": "0.1.0",
+  "author": { "name": "Brandon Mason" }
+}
