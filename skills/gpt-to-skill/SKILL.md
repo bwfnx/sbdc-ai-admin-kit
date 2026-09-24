@@ -60,7 +60,7 @@ Markdown or plain text is best. Word files work but add nothing. One file avoids
 
    Merge and Retire are recommendations. The admin decides.
 
-   **Flags** — any that apply: `knowledge` (depends on Knowledge files), `client-data` (handles client names, IDs, or financials), `web/apps` (uses web search, app connectors, or Actions), `no-refusals` (states nothing it won't do), `math` (calculates or scores).
+   **Flags** — any that apply: `knowledge` (depends on Knowledge files), `client-data` (handles client names, IDs, or financials), `web/apps` (uses web search, app connectors, or Actions), `no-refusals` (its instructions contain no "don't", "never", or "only" limit on what it will do — check every GPT for this, including ones that sound harmless), `math` (calculates or scores).
 
    **Order** — simplest first: Skills with the fewest flags, then Plugins. Agents last.
 3. After the table, ask once: "Which of these do people use every day?" Move those to the top of the order.
