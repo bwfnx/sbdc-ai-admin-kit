@@ -1,0 +1,65 @@
+{
+  "slug": "transcript-to-action-plan-client-email",
+  "title": "Transcript to Action Plan & Client Email",
+  "tagline": "Turns a client meeting transcript into the Neoserra follow-up email.",
+  "type": "conversation",
+  "plugin": { "name": "", "label": "(inferred) sbdc-toolkit" },
+  "version": "",
+  "updated": "2026-09-24",
+  "source": "GPT: Transcript to Action Plan & Client Email v 2.0 (UMD ChatGPT workspace)",
+  "summary": [
+    "Reads a Maryland SBDC client meeting transcript and drafts the professional follow-up email the consultant posts into Neoserra.",
+    "Sorts the meeting into Next Steps, Notes, Things We Have Accomplished (milestones only), and Relevant Links.",
+    "Ends with a lettered follow-up menu, and — when the Nexus/Neoserra mapping option is picked — a full audit-grade third-person session narrative."
+  ],
+  "never": [
+    "Never guesses a missing Client ID Code — uses the literal 'Client ID' instead.",
+    "Never paraphrases a Neoserra milestone category — matches the list exactly.",
+    "Never puts an accomplishment that doesn't map to a milestone in the milestone section — it goes in Notes.",
+    "Never mixes confirmed and potential/inferred milestones into the client-facing email.",
+    "Never fetches Maryland SDAT / Business Express status automatically.",
+    "Never adds a 'not in good standing' Next Steps line until the consultant confirms it; adds nothing if the business is in good standing or unregistered.",
+    "Never leaves out the three always-present follow-up options.",
+    "Never recommends the fiscal-year Training Events export — always the next six months.",
+    "Never adds a conditional follow-up option the transcript doesn't support.",
+    "Never skips the two required follow-up options (Nexus/Neoserra mapping; high value/minimum effort).",
+    "Never gives the Nexus/Neoserra dropdown selections without the full narrative.",
+    "Never invents Prepare hours in the Nexus narrative.",
+    "Never includes anything said after the client left, or subjective judgment about the client, in the Nexus narrative.",
+    "Never asserts an unverified milestone in the Nexus narrative.",
+    "Never uses emojis.",
+    "Never dumps chronological notes instead of sorting into the template's sections."
+  ],
+  "have_ready": [
+    "The client meeting transcript (required).",
+    "Neoserra Training Events export, next six months (optional — improves the training-plan follow-up option)."
+  ],
+  "connects": [
+    "Maryland Community Business Compass connector (optional, for live funding/grant search)"
+  ],
+  "setup": {
+    "steps": [],
+    "first_say": "ATTACH TRANSCRIPT",
+    "asks": [
+      "(inferred) If no transcript is attached yet, ask the consultant to attach the client meeting transcript before drafting anything."
+    ],
+    "note": "Two Knowledge files the source GPT depended on (gpt-assistant-instructions.md, SKILL.md) were not available for this conversion; the Neoserra-file (client-record export) mode is not supported yet — see the ledger's Lost in translation table."
+  },
+  "use": {
+    "say": [
+      "ATTACH TRANSCRIPT",
+      "Turns client transcripts into easily readable emails that can be posted to NeoSerra"
+    ],
+    "returns": [
+      "A Neoserra-ready follow-up email (Subject, Next Steps, Notes, Things We Have Accomplished, Relevant Links, signature block)",
+      "A lettered follow-up menu (six to eight options)",
+      "When the Nexus/Neoserra mapping option is chosen: milestone + counseling dropdown selections, plus a full third-person audit-grade session narrative"
+    ],
+    "then": [
+      "Consultant reviews any 'Potential' milestones flagged separately before recording them in Neoserra.",
+      "Consultant clicks the Maryland SDAT link themselves and confirms good-standing status before any related Next Steps line is added."
+    ],
+    "tips": []
+  },
+  "faq": []
+}
