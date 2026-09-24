@@ -1,0 +1,17 @@
+{
+  "slug": "",
+  "title": "",
+  "tagline": "",
+  "type": "conversation",
+  "plugin": { "name": "", "label": "" },
+  "version": "",
+  "updated": "",
+  "source": "",
+  "summary": [],
+  "never": [],
+  "have_ready": [],
+  "connects": [],
+  "setup": { "steps": [], "first_say": "", "asks": [], "note": "" },
+  "use": { "say": [], "returns": [], "then": [], "tips": [] },
+  "faq": []
+}

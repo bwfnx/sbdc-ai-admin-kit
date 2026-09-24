@@ -46,6 +46,18 @@ def test_generator():
     assert 'Skill guides — Hawaii SBDC' in index and 'Maryland SBDC toolkit' not in index
     shutil.rmtree(tmp)
 
+def test_copies_in_sync():
+    """The converter must be self-contained when zipped, so it carries copies. They may not drift."""
+    ref = os.path.join(HERE, 'skills', 'gpt-to-skill', 'references')
+    for top, copy in (('STANDARD.md', 'standard.md'), ('TESTING.md', 'testing.md')):
+        a = open(os.path.join(HERE, top), 'rb').read()
+        b = open(os.path.join(ref, copy), 'rb').read()
+        assert a == b, '%s and references/%s differ - copy the top-level file over' % (top, copy)
+    tmpl = json.load(open(os.path.join(ref, 'guide-spec-template.json'), encoding='utf-8'))
+    for key in ('slug', 'title', 'tagline', 'type', 'source', 'summary', 'never', 'have_ready', 'setup', 'use', 'faq'):
+        assert key in tmpl, 'guide-spec-template.json missing ' + key
+
 if __name__ == '__main__':
     test_generator()
+    test_copies_in_sync()
     print('ok')
