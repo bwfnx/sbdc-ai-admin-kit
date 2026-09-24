@@ -26,7 +26,7 @@ Don't use it to:
 **For triage:** one file, `my-gpts.md`, with every GPT in it like this:
 
     ## <GPT name>
-    Description: <from the Configure page>
+    Description: <all from the GPT's Configure page>
     Conversation starters: <each one>
     Knowledge files: <file names only>
     Capabilities: <web search, code interpreter, image generation, canvas, apps like Gmail or Drive, any Actions>
@@ -35,12 +35,13 @@ Don't use it to:
 
 Markdown or plain text is best. Word files work but add nothing. One file avoids per-message upload limits, and GPT instructions are capped at 8,000 characters each, so even thirty GPTs fit.
 
-**For convert:** the same block for one GPT (or its conversion card), plus the actual Knowledge files.
+**For convert:** the same block for one GPT (or its conversion card), plus the actual Knowledge files — the originals you uploaded (the Configure page lists their names under Knowledge).
 
 ## Which mode
 
-- More than one GPT in the input → **Triage**.
-- One GPT, or a conversion card → **Convert**.
+- No GPT in the input, or the input isn't GPT instructions (a flyer, a transcript, a spreadsheet) → say what you received and ask: "Paste or attach your GPT the way 'What to have ready' shows — one `## <GPT name>` block per GPT." Don't triage or convert anything else.
+- A conversion card, or a request to convert one named GPT → **Convert**, using only that GPT's section even if the file holds others.
+- More than one GPT and no card → **Triage**.
 - Can't tell → ask: "Do you want me to triage several GPTs, or convert one?"
 
 ## Triage
@@ -63,7 +64,7 @@ Markdown or plain text is best. Word files work but add nothing. One file avoids
    **Flags** — any that apply: `knowledge` (depends on Knowledge files), `client-data` (handles client names, IDs, or financials), `web/apps` (uses web search, app connectors, or Actions), `no-refusals` (its instructions contain no "don't", "never", or "only" limit on what it will do — check every GPT for this, including ones that sound harmless), `math` (calculates or scores).
 
    **Order** — simplest first: Skills with the fewest flags, then Plugins. Agents last.
-3. After the table, ask once: "Which of these do people use every day?" Move those to the top of the order.
+3. After the table, ask once: "Which of these do people use every day?" Move those to the top of the order. If no answer comes, keep the order as it is and say so.
 4. Write a **conversion card** for every Skill or Plugin row:
 
        Convert this GPT to a skill: <GPT name>
@@ -78,15 +79,16 @@ Markdown or plain text is best. Word files work but add nothing. One file avoids
 ## Convert
 
 **Opening questions** (ask only what's missing, all at once):
+- If the Instructions aren't here (only a card or a GPT name): "Paste this GPT's section of my-gpts.md. I can't convert it without its Instructions."
 - If the source wrote no opening questions, any you write for the new skill end in "(inferred)", in SKILL.md and in the guide's setup.asks.
 - If Knowledge files are named but not attached: "The GPT lists these Knowledge files: <names>. Can you attach them? If not, I'll convert without them and list what's lost."
 - If the Description and Conversation starters give fewer than two phrases people would really say: "What do staff actually type when they use this GPT? Those become the trigger phrases." If none come, derive triggers from the instructions, mark each "(inferred)", and log "thin triggers" in Lost in translation.
 
-If an answer never comes, proceed and record the gap in the ledger's "Lost in translation" table.
+If an answer never comes, proceed and record the gap in the ledger's "Lost in translation" table — except the Instructions: without them, stop.
 
 **Steps:**
 1. **Inventory.** List what you received and what's missing, in three lines.
-2. **Check for client data.** If the instructions or Knowledge contain real client names, IDs, or financials, stop and say so. Don't copy them into the skill; ask the admin to replace them with placeholders first.
+2. **Check for client data.** If the instructions or Knowledge contain client names, IDs, SSNs, dates of birth, account numbers, or financials — real or sample — stop and say so. Don't copy them into the skill, even inside an example or a template; ask the admin to replace them with placeholders first.
 3. **Place every line.** Walk the instructions top to bottom. Each line — and every clause in it — goes to exactly one place: a SKILL.md section, a reference file, or a ledger table. Nothing is dropped silently. Before writing the ledger, re-read the source against the finished SKILL.md once; anything shortened away goes back in or into Lost in translation.
 4. **Write the SKILL.md.**
    - `name`: the GPT's name as a lowercase hyphenated slug, version numbers dropped ("Transcript to Action Plan & Client Email v 2.0" → `transcript-to-action-plan-client-email`).
@@ -124,7 +126,7 @@ End with: "Next: answer yes or no on each Suggested guardrail. Then install the 
 - Never paraphrases a list that has to match a system exactly.
 - Never writes scripts. It flags script candidates.
 - Never converts more than one GPT per chat, and never opens Knowledge files during triage.
-- Never copies real client data into a skill.
+- Never copies client data into a skill — real or sample, including examples inside a template.
 - Never says the converted skill works. Testing is the admin's step, in a fresh chat.
 - Merge and Retire are recommendations, never decisions.
 
