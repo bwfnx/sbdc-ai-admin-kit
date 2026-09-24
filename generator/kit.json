@@ -1,0 +1,13 @@
+{
+  "center": "Maryland SBDC",
+  "for": "Maryland SBDC consultants and staff",
+  "maintainer": "Brandon Mason",
+  "badge": "Maryland SBDC &middot; MIT licensed",
+  "only_plugin": "sbdc-toolkit",
+  "source_repo": "https://github.com/bwfnx/sbdc-toolkit",
+  "files_step": "<b>Get the files:</b> everything is in the <a href=\"https://github.com/bwfnx/sbdc-toolkit\" target=\"_blank\" rel=\"noopener\">public GitHub repository</a> &mdash; the skills themselves, and the ready-to-install plugin file on the <a href=\"https://github.com/bwfnx/sbdc-toolkit/releases/latest\" target=\"_blank\" rel=\"noopener\">latest release</a>. MIT licensed; no GitHub account needed to download.",
+  "cowork_where": "the <a href=\"https://github.com/bwfnx/sbdc-toolkit/releases/latest\" target=\"_blank\" rel=\"noopener\">latest release</a>",
+  "files_panel": "<b>Where the files are:</b> the <a href=\"https://github.com/bwfnx/sbdc-toolkit\" target=\"_blank\" rel=\"noopener\">sbdc-toolkit repository on GitHub</a> holds the skills; the ready-to-install plugin file is on the <a href=\"https://github.com/bwfnx/sbdc-toolkit/releases/latest\" target=\"_blank\" rel=\"noopener\">latest release</a>. MIT licensed &mdash; other SBDCs are welcome to use and adapt these. They were written for Maryland SBDC practice, so check anything that touches your own CRM, programs, or reporting rules before you rely on it.",
+  "chatgpt_fallback": "paste the skill text into a ChatGPT Project's instructions or a custom GPT.",
+  "netlify_allowlist": false
+}

@@ -1,0 +1,89 @@
+{
+  "slug": "transcript-to-action-plan",
+  "title": "Transcript to Action Plan",
+  "type": "conversation",
+  "plugin": {
+    "name": "sbdc-toolkit",
+    "label": "Maryland SBDC Toolkit",
+    "install_cowork": "sbdc-toolkit.plugin",
+    "install_code": [
+      "/plugin marketplace add bwfnx/sbdc-toolkit",
+      "/plugin install sbdc-toolkit@maryland-sbdc"
+    ]
+  },
+  "updated": "2026-09-21",
+  "source": "sbdc-toolkit/skills/transcript-to-action-plan-client-email/SKILL.md",
+  "version": " (staff name: Transcript to Action Plan 2.0)",
+  "tagline": "Turn a client meeting transcript into the follow-up email you post into Neoserra — Next Steps, Notes, Accomplishments, Links — plus a menu of extras and the Nexus counseling narrative.",
+  "summary": [
+    "Paste or attach the transcript of a client meeting and you get back the professional follow-up email, written in your voice to the client, sorted into the four sections Neoserra expects. It is the record of the meeting, not a chronological dump.",
+    "After the draft, it offers a short lettered menu of follow-ups built from <i>this</i> meeting: a capital-readiness scorecard, a recommended training plan, the Maryland good-standing check, a funding search when capital came up, and a Nexus/Neoserra mapping option that gives you the exact dropdowns to enter <b>and</b> the third-person session narrative that survives a Form 641 review."
+  ],
+  "never": [
+    "Never uses emojis or casual tone — the email becomes part of the client's official record.",
+    "Never mixes inferred or partial milestones with confirmed ones; anything uncertain goes in a separate table for you to verify.",
+    "Never sends anything. You copy the email into Neoserra and your mail client yourself."
+  ],
+  "have_ready": [
+    "The transcript — pasted, attached, or a Google Meet / Zoom export. A detailed description of the meeting works if that's all you have.",
+    "Optional: the client's Neoserra file, if you want milestones mined from it.",
+    "Optional: the current Neoserra Training Events export, if you'll ask for the training plan."
+  ],
+  "connects": [
+    {
+      "source": "Maryland Community Business Compass",
+      "reads": "State and local funding programs (~700)",
+      "does": "When you pick the funding-search option and the connector is available, the search runs live instead of from memory"
+    },
+    {
+      "source": "SDAT Business Express",
+      "reads": "Nothing automatically",
+      "does": "Gives you the entity-search link to click through for the good-standing check"
+    }
+  ],
+  "setup": {
+    "first_say": "Here's the transcript from my meeting with [client] — draft the follow-up email.",
+    "asks": [
+      "Nothing, usually. It drafts from the transcript and asks only if something blocks the draft (a client name, a missing link)."
+    ]
+  },
+  "use": {
+    "say": [
+      "Draft the SBDC next-steps email from this transcript.",
+      "Flag the Neoserra milestones from this conversation.",
+      "Map this meeting to the Nexus/Neoserra dropdowns."
+    ],
+    "returns": [
+      "<b>The email</b> — Subject <code>SBDC Next Steps - [Client ID] - [Company]</code>, then Next Steps, Notes, Things We Have Accomplished Since Our Last Meeting, Relevant Links.",
+      "<b>Milestones</b> it spotted (certifications like 8(a)/MBE/WBE/DBE, sales or expansion, legislative letters, AI adoption, surveys), with anything uncertain in a separate verification table.",
+      "<b>A lettered follow-up menu</b> — always the scorecard, training plan, and good-standing check; funding search and hand-offs to other toolkit skills when the meeting calls for them; two or three ideas invented for this meeting; one \"high value, minimum effort\" pick; and the Nexus/Neoserra mapping."
+    ],
+    "then": [
+      "Pick a letter to get that deliverable.",
+      "The Neoserra option returns both the dropdown selections and the full narrative — paste the narrative as the counseling note.",
+      "Post the email into Neoserra, then send it to the client from your own mail."
+    ],
+    "tips": [
+      "Say the client ID and company up front and the subject line comes out right the first time.",
+      "If the client mentioned funding, the funding-search option is the one to pick — it's live when the Compass connector is on."
+    ]
+  },
+  "faq": [
+    {
+      "q": "Is this the same as the ChatGPT \"Transcript to Action Plan 2.0\" assistant?",
+      "a": "Same method, same output shape. This is the Claude version inside the toolkit plugin."
+    },
+    {
+      "q": "Internal notes for my own file, not a client email?",
+      "a": "That's <a href=\"transcript-to-meeting-notes.html\">Transcript to Meeting Notes</a>. A lapsed client with no transcript is <a href=\"client-follow-up-and-reengagement.html\">Client Follow-up</a>."
+    },
+    {
+      "q": "Is it safe to paste client details?",
+      "a": "Paste only what the deliverable needs. Nothing you paste is stored by the skill, but the chat itself is a record — treat it like any other working document."
+    },
+    {
+      "q": "It did something odd. Who do I ask?",
+      "a": "Brandon Mason. Say which skill and what you said to start it; a screenshot of the reply helps."
+    }
+  ]
+}
