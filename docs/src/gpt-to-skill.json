@@ -36,7 +36,7 @@
   "setup": {
     "steps": [
       "<b>ChatGPT Skills:</b> on the <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit\" target=\"_blank\" rel=\"noopener\">repository page</a>, click the green <b>Code</b> button, then <b>Download ZIP</b>. Unzip it and upload the <code>skills/gpt-to-skill</code> folder at chatgpt.com/skills.",
-      "<b>Codex:</b> say <code>install https://github.com/bwfnx/sbdc-ai-admin-kit</code>."
+      "<b>ChatGPT Work mode or Codex:</b> switch the chat to Work mode (a regular chat can't install from GitHub) and say <code>install https://github.com/bwfnx/sbdc-ai-admin-kit</code>."
     ],
     "first_say": "Triage my GPTs",
     "asks": [
