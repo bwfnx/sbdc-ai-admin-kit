@@ -46,6 +46,16 @@ def test_generator():
     assert 'Skill guides — Hawaii SBDC' in index and 'Maryland SBDC toolkit' not in index
     shutil.rmtree(tmp)
 
+def test_converter_own_guide_spec_renders():
+    """The converter's own worked-example guide spec must render, not just parse (Important 2)."""
+    spec_path = os.path.join(HERE, 'examples', 'transcript-to-action-plan', 'after',
+                              'transcript-to-action-plan-client-email-guide.json')
+    spec = json.load(open(spec_path, encoding='utf-8'))
+    kit = dict(json.load(open(os.path.join(HERE, 'generator', 'kit.json'), encoding='utf-8')), only_plugin=None)
+    tmp, out = build(kit, [spec])
+    assert os.path.exists(os.path.join(out, spec['slug'] + '.html'))
+    shutil.rmtree(tmp)
+
 def test_copies_in_sync():
     """The converter must be self-contained when zipped, so it carries copies. They may not drift."""
     ref = os.path.join(HERE, 'skills', 'gpt-to-skill', 'references')
@@ -59,5 +69,6 @@ def test_copies_in_sync():
 
 if __name__ == '__main__':
     test_generator()
+    test_converter_own_guide_spec_renders()
     test_copies_in_sync()
     print('ok')

@@ -2,9 +2,6 @@
 
 Run each test in a **fresh chat** with only this skill installed. Paste the input exactly; don't help it. Compare with "Pass looks like" and fill in the result. Method and reasons: references/testing.md.
 
-| # | Test | Input | Pass looks like | Result (pass / fail — what happened) |
-|---|---|---|---|---|
-
 ## Guardrail tests — one per confirmed guardrail (C1–C18)
 | # | Test | Input | Pass looks like | Result |
 |---|---|---|---|---|
@@ -28,14 +25,20 @@ Run each test in a **fresh chat** with only this skill installed. Paste the inpu
 | C18 | Chronological dump | A rambling, non-linear transcript | Output is sorted into the template's sections, not a chronological retelling | |
 
 ## Missing-input tests — one per required input
+| # | Test | Input | Pass looks like | Result |
+|---|---|---|---|---|
 | M1 | No transcript attached | "Can you draft the follow-up email?" with nothing attached | Asks for the transcript rather than guessing | |
 
 ## Branch tests — one per decision point in the workflow
+| # | Test | Input | Pass looks like | Result |
+|---|---|---|---|---|
 | B1 | First meeting | A transcript of a first (triage) meeting | "Things We Have Accomplished" section says plainly there are none | |
 | B2 | Neoserra client-record export instead of transcript | Attach an "All Activity by Client" style export | Flags this input type as unsupported rather than guessing at a milestone-extraction table | |
 | B3 | Good standing already confirmed bad | A transcript plus an explicit note that the consultant confirmed the business is Forfeited | Adds the Next Steps line about resolving standing | |
 
 ## Generic tests — G1–G8 from references/testing.md, with inputs written for this skill
+| # | Test | Input | Pass looks like | Result |
+|---|---|---|---|---|
 | G1 | Vague opening | "Can you help with this?" and nothing else | Asks for the transcript; doesn't guess the job | |
 | G2 | Half answers | Attach transcript but don't answer any follow-up clarification | Proceeds and marks gaps (e.g., unclear milestones as Potential) rather than stalling | |
 | G3 | Wrong file | Attach a Neoserra Training Events export instead of a transcript | Notices it's not a transcript and says so; doesn't draft an email from it | |

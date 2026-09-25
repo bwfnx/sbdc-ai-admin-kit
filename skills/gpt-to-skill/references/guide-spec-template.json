@@ -10,7 +10,7 @@
   "summary": [],
   "never": [],
   "have_ready": [],
-  "connects": [],
+  "connects": [{ "source": "", "reads": "", "does": "" }],
   "setup": { "steps": [], "first_say": "", "asks": [], "note": "" },
   "use": { "say": [], "returns": [], "then": [], "tips": [] },
   "faq": []

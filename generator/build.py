@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
-"""Skill guide generator: <src>/<slug>.json -> <out>/<slug>.html + <out>/index.html
+"""Skill guide generator: <src>/<slug>-guide.json -> <out>/<slug>.html + <out>/index.html
 
   py build.py --kit kit.json --src <folder of spec json> --out <folder>
 
 Content lives in the specs (one per skill, written from the skill's own files).
 Everything about YOUR center lives in kit.json. This script only supplies the chrome,
-so every guide looks the same and the index never drifts. MIT licensed, unsupported.
+so every guide looks the same and the index never drifts.
+
+Written for Maryland and points at Neoserra - check anything that touches your own CRM,
+programs, or reporting rules before you lean on it. MIT and unsupported - fork it, change
+it, don't wait on me.
 """
 import argparse, datetime, glob, html, json, os, sys
 if hasattr(sys.stdout, 'reconfigure'): sys.stdout.reconfigure(encoding='utf-8')
@@ -114,14 +118,16 @@ def main():
     kit = json.load(open(a.kit, encoding='utf-8'))
     tpl = open(os.path.join(HERE, 'guide.template.html'), encoding='utf-8').read()
     os.makedirs(a.out, exist_ok=True)
-    only, specs = kit.get('only_plugin'), []
+    only, specs, skipped = kit.get('only_plugin'), [], 0
     for f in sorted(glob.glob(os.path.join(a.src, '*.json'))):
-        s = json.load(open(f, encoding='utf-8')); s.setdefault('slug', os.path.splitext(os.path.basename(f))[0])
-        if only and (s.get('plugin') or {}).get('name') != only: continue   # other plugins' guides never ship in this build
+        s = json.load(open(f, encoding='utf-8')); s['slug'] = s.get('slug') or os.path.splitext(os.path.basename(f))[0]
+        if only and (s.get('plugin') or {}).get('name') != only: skipped += 1; continue   # other plugins' guides never ship in this build
         specs.append(s)
         with open(os.path.join(a.out, s['slug'] + '.html'), 'w', encoding='utf-8', newline='\n') as fh: fh.write(render(s, tpl, kit))
     with open(os.path.join(a.out, 'index.html'), 'w', encoding='utf-8', newline='\n') as fh: fh.write(render_index(specs, tpl, kit))
-    print('rendered', len(specs), 'guides + index ->', a.out)
+    msg = 'rendered %d guides + index -> %s' % (len(specs), a.out)
+    if skipped: msg += ' (skipped %d: plugin is not %s)' % (skipped, only)
+    print(msg)
     if kit.get('netlify_allowlist'):
         update_redirects(os.path.join(os.path.dirname(os.path.abspath(a.out)), '_redirects'), [s['slug'] for s in specs])
 

@@ -59,7 +59,7 @@ In the original skill, but the GPT's instructions never mentioned it or pointed 
 ## Added
 | In the converted skill, not in the original | Good or bad |
 |---|---|
-| "When to use it — and when not to": the GPT's own "never" rules, plus a plain note that Neoserra client-record exports aren't supported yet | Good — nothing here narrows the job beyond what the GPT said. The first four bullets repeat the Guardrails rather than naming neighboring jobs, which is harmless |
+| "When to use it — and when not to": the GPT's own "never" rules, plus a plain note that Neoserra client-record exports aren't supported yet | Good — nothing here narrows the job beyond what the GPT said. The first five bullets repeat the Guardrails rather than naming neighboring jobs, which is harmless |
 | An opening question asking for the transcript, marked "(inferred)" | Good |
 | A numbered 8-step Workflow with its branch points named | Good |
 | Guardrails: 18 rules, every one traced to the GPT's own words, no made-up ones | Good |
@@ -77,7 +77,7 @@ The converted skill drafts the client email, follows the milestone rules, builds
 - **Round 2 (four changes):** compare every list item in each Knowledge file character by character; nothing goes in Guardrails but Confirmed rules, and gaps from missing files become Workflow notes; every clause, not just every line, has to land somewhere, with a re-read at the end; the guide's "never" list covers every Confirmed rule that forbids something.
 - **Round 3 (four changes):** script candidates are any ratio or score the source names anywhere, including menu options; "When not to use it" may only list what the source rules out, and no restriction goes anywhere without approval; the guide's "never" list has one line per Confirmed row; converter-written opening questions are marked "(inferred)".
 
-**What the fourth run showed.** All mechanical checks passed: the guide spec parses, the ledger has its five sections, the GPT-only workaround is gone, the 34 milestone names are copied word for word, the Neoserra-file mode is in Lost, and DSCR is a script candidate. For the first time, none of the bigger problems showed up in the same run: no made-up restriction, the "always" rules are in the Confirmed table, referrals and "not a one-line summary" are kept, and the opening question is marked "(inferred)". What's left is small: two trimmed phrases, the guide's "never" list at 16 lines for 18 rules (one "always" rule missing and two near-duplicates merged), the guide's trigger list, and the connector missing from Needs.
+**What the fourth run showed.** All mechanical checks passed: the guide spec parses (a field-shape bug in the converter's template was fixed afterward so it also renders), the ledger has its five sections, the GPT-only workaround is gone, the 34 milestone names are copied word for word, the Neoserra-file mode is in Lost, and DSCR is a script candidate. For the first time, none of the bigger problems showed up in the same run: no made-up restriction, the "always" rules are in the Confirmed table, referrals and "not a one-line summary" are kept, and the opening question is marked "(inferred)". What's left is small: two trimmed phrases, the guide's "never" list at 16 lines for 18 rules (one "always" rule missing and two near-duplicates merged), the guide's trigger list, and the connector missing from Needs.
 
 **Variance between runs.** The same converter, given the same input, gave these results:
 

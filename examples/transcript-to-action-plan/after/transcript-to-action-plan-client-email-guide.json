@@ -35,7 +35,7 @@
     "Neoserra Training Events export, next six months (optional — improves the training-plan follow-up option)."
   ],
   "connects": [
-    "Maryland Community Business Compass connector (optional, for live funding/grant search)"
+    { "source": "Maryland Community Business Compass connector (optional)", "reads": "State and local funding programs (~700)", "does": "Runs the live funding/grant search when the connector is available" }
   ],
   "setup": {
     "steps": [],

@@ -2,7 +2,7 @@
 
 The converter tells you to cold-test every skill it produces. This file does the same to the converter itself: every test TESTING.md asks for, judged strictly, then the skill scored against STANDARD.md.
 
-**Result: 30 tests, 23 pass, 7 fail. STANDARD.md score: 8 of 10.** The seven failures come down to five wording problems in SKILL.md. Each one is listed with a proposed fix at the end. None of the fixes has been applied or re-run yet.
+**Result: first pass 23/30 and 8/10; five wording fixes applied; the seven failed tests re-run in a simulated walk-through now pass (30/30, 10/10). Not yet re-run live.** The seven original failures came down to five wording problems in SKILL.md. Each one is listed with a proposed fix below, followed by the re-test.
 
 ## How this was run, and what that means
 
@@ -10,6 +10,7 @@ The converter tells you to cold-test every skill it produces. This file does the
 - **How:** an agent read only the skill and its references, played the skill against each test input as if in a new chat, and judged the response against "Pass looks like." Test GPTs came from `examples/triage-demo/my-gpts.md`.
 - **The judging rule:** a test **passes only if the skill's own words produce the passing behavior.** If passing depends on the model happening to have good sense, or two lines of the skill point different ways, it fails. That is stricter than "would a good model probably get it right," on purpose: the skill has to hold up on a bad day.
 - **The limit you should know about:** this was a simulated walk-through, not a live fresh-chat run, and the agent had already read the triage demo and the worked-example scorecard. So it isn't fully cold. The live cold runs are the ones in `examples/triage-demo/triage-result.md` (triage, two runs) and `examples/transcript-to-action-plan/scorecard.md` (convert, four runs), and G8 and B1–B2 below lean on them.
+- Line numbers in the "Results" table below refer to `SKILL.md` as it stood before the fixes (commit `26697e4`).
 
 ## Results
 
@@ -103,7 +104,7 @@ Fix: put the card rule first and make it win:
 
 ## Fixes applied
 
-All five proposed wording fixes applied to `C:\Users\brand\Documents\GitHub\sbdc-ai-admin-kit\skills\gpt-to-skill\SKILL.md`, plus the STANDARD check-4 wording (line 29, line 38). Guardrails reviewed against the body: fix 4's Guardrails-list wording ("real or sample, including examples inside a template") was itself part of the proposal and is included below; no other Guardrails line needed a change to stay consistent. None of these fixes has been re-run through the self-test yet.
+All five proposed wording fixes applied to `skills/gpt-to-skill/SKILL.md`, plus the STANDARD check-4 wording (line 29, line 38). Guardrails reviewed against the body: fix 4's Guardrails-list wording ("real or sample, including examples inside a template") was itself part of the proposal and is included below; no other Guardrails line needed a change to stay consistent.
 
 ### 1 — No route for "no GPT here" — G3, M1 ("Which mode")
 Before:
@@ -180,7 +181,7 @@ After (line 38):
 > `**For convert:** the same block for one GPT (or its conversion card), plus the actual Knowledge files — the originals you uploaded (the Configure page lists their names under Knowledge).`
 
 ### Test
-Command: `py test_kit.py` (run from `C:\Users\brand\Documents\GitHub\sbdc-ai-admin-kit`)
+Command: `py test_kit.py` (run from the repo root)
 Output: `ok`
 
 ## Re-test after fixes (fresh agent)
@@ -206,6 +207,6 @@ A fresh agent, with no memory of the run above, read only `skills/gpt-to-skill/S
 
 **New total: 30 scored, 30 pass, 0 fail.** All seven previously-failing tests pass under the current wording, and both previously-failing STANDARD.md checks now pass — STANDARD.md score is 10 of 10.
 
-No known limits remain from this test set. The one caveat carried over from the original run still applies going forward: TESTING.md's "What counts as done" wants failures fixed *and re-run*, and this re-test is that re-run, but it is still a simulated walk-through (an agent playing the skill against the transcript), not a live fresh-chat run in the actual product. The live cold runs referenced in the original results (`examples/triage-demo/triage-result.md`, `examples/transcript-to-action-plan/scorecard.md`) predate this wording change and have not been repeated against it — that's worth a live re-run before calling the fixes fully proven, though nothing in this pass suggests they'd behave differently.
+The 23 earlier passes were not re-run against the new wording. Beyond that, one caveat carries over from the original run: TESTING.md's "What counts as done" wants failures fixed *and re-run*, and this re-test is that re-run, but it is still a simulated walk-through (an agent playing the skill against the transcript), not a live fresh-chat run in the actual product. The live cold runs referenced in the original results (`examples/triage-demo/triage-result.md`, `examples/transcript-to-action-plan/scorecard.md`) predate this wording change and have not been repeated against it — that's worth a live re-run before calling the fixes fully proven, though nothing in this pass suggests they'd behave differently.
 
-No fixes deviated from the proposed wording; all applied as written, including STANDARD check 4. Only `skills/gpt-to-skill/SKILL.md` and this file were touched. `references/` untouched. Nothing committed. These edits are untested by a fresh self-test or cold run.
+No fixes deviated from the proposed wording; all applied as written, including STANDARD check 4. Only `skills/gpt-to-skill/SKILL.md` and this file were touched. `references/` untouched.

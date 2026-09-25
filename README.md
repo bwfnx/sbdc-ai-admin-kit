@@ -18,16 +18,16 @@ Custom GPTs are being retired (December 11, 2026 for Enterprise workspaces; Busi
 
 ## Start here
 
-1. **Export your GPTs into one Markdown file.** For each GPT, open Configure and paste into `my-gpts.md`: a `## GPT name` heading, then Description, Conversation starters, Knowledge file names, Capabilities, and the whole Instructions box. Markdown or plain text, not Word — it's already plain text, and one file avoids upload limits.
+1. **Export your GPTs into one Markdown file.** For each GPT, open Configure and paste into `my-gpts.md`: a `## GPT name` heading, then Description, Conversation starters, Knowledge file names, Capabilities, and the whole Instructions box. Markdown or plain text is best; Word works but adds nothing — one file avoids upload limits.
 2. **Install the kit.** ChatGPT: say `install https://github.com/bwfnx/sbdc-ai-admin-kit`, or download this repo as a zip and upload `skills/gpt-to-skill` at chatgpt.com/skills. Claude Code: `/plugin marketplace add bwfnx/sbdc-ai-admin-kit` then `/plugin install sbdc-ai-admin-kit@sbdc-ai-admin`. Anywhere else: paste `skills/gpt-to-skill/SKILL.md` into a project's instructions.
 3. **Triage.** New chat: "Triage my GPTs," attach `my-gpts.md`. You get a verdict for each (Skill, Plugin, Agent, Merge, Retire) and a conversion card for each one worth converting.
 4. **Convert, one per chat.** New chat for each card: paste the card, attach that GPT's Knowledge files. Answer yes or no on the suggested guardrails.
 5. **Test** each new skill in a fresh chat with its checklist. See [TESTING.md](TESTING.md).
-6. **Publish a staff guide.** `py generator/build.py --kit generator/kit.json --src <folder of guide specs> --out <folder>`. Python 3, nothing to install.
+6. **Publish a staff guide.** `py generator/build.py --kit generator/kit.json --src <folder of guide specs> --out <folder>`. Python 3, nothing to install. In `kit.json`, set `only_plugin` to `null` to render every guide spec you pass in, or to your plugin's name to render only that plugin's guides — the shipped `kit.json` uses `"sbdc-toolkit"` because it reproduces Maryland's live public pages. `netlify_allowlist` is Maryland-specific (it edits a `_redirects` file for a default-closed Netlify site) and should stay `false` unless you're running that same setup.
 
 ## See it work first
 
-[examples/transcript-to-action-plan](examples/transcript-to-action-plan/) converts Maryland's meeting-notes GPT and compares the result with the original skill that GPT was built from — what it kept, what it lost, and whether it told you about the losses.
+[examples/transcript-to-action-plan](examples/transcript-to-action-plan/) converts Maryland's meeting-notes GPT and compares the result with the original skill that GPT was built from — what it kept, what it lost, and whether it told you about the losses. It scored a narrow FAIL, and results vary from run to run — use the scorecard's hand-check list on every conversion.
 
 ## License
 
