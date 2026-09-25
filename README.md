@@ -6,6 +6,8 @@ For the person who runs AI at an SBDC — the one who builds the tools, gets the
 
 Custom GPTs are being retired (December 11, 2026 for Enterprise workspaces; Business workspaces are showing the same notice). Converting them is the easy part now. Knowing whether what came out still works is the part that needs a method, and that's what this kit is.
 
+**New here? Open the guide site first: https://bwfnx.github.io/sbdc-ai-admin-kit/** — it says what to do, in order.
+
 ## Start here
 
 1. **Convert.** If your ChatGPT workspace has the one-click migration, use it. Migrating everything and keeping what people actually use is a perfectly good plan.

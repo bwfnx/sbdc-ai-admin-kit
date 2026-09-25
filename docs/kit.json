@@ -1,0 +1,13 @@
+{
+  "center": "SBDC AI Admin",
+  "for": "SBDC AI directors and the people who run AI at their center",
+  "maintainer": "Brandon Mason (Maryland SBDC)",
+  "badge": "SBDC AI Admin Kit &middot; MIT licensed",
+  "only_plugin": "sbdc-ai-admin-kit",
+  "source_repo": "https://github.com/bwfnx/sbdc-ai-admin-kit",
+  "files_step": "<b>Get the files:</b> everything is in the <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit\" target=\"_blank\" rel=\"noopener\">public GitHub repository</a>. Click the green <b>Code</b> button, then <b>Download ZIP</b>. No GitHub account needed.",
+  "cowork_where": "the repository",
+  "files_panel": "<h3 style=\"margin-top:0;\">Start here &mdash; you just got this kit. Do these three things, in order.</h3><ol><li><b>Convert your GPTs.</b> If your ChatGPT workspace has the one-click GPT migration, use it; migrating everything and keeping what people actually use is fine. No button, or moving to Claude? Use the GPT to Skill guide below.</li><li><b>Check every result before advisors touch it.</b> Score it against <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/STANDARD.md\" target=\"_blank\" rel=\"noopener\">STANDARD.md</a> (ten pass/fail lines), then run it cold in a fresh chat with <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/TESTING.md\" target=\"_blank\" rel=\"noopener\">TESTING.md</a>. This is the step that matters. <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit/tree/main/examples/transcript-to-action-plan\" target=\"_blank\" rel=\"noopener\">Here's why</a>.</li><li><b>Give staff a one-page guide for each skill</b> &mdash; like the one below. A plain document works; the kit's generator builds pages like this if you want it.</li></ol><p style=\"margin-bottom:0;\">Everything else in the kit is optional. Written for Maryland and points at Neoserra &mdash; check anything that touches your own CRM, programs, or reporting rules before you lean on it. MIT and unsupported &mdash; fork it, change it, don't wait on me.</p>",
+  "chatgpt_fallback": "paste the skill text into a ChatGPT Project's instructions.",
+  "netlify_allowlist": false
+}
