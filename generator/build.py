@@ -106,7 +106,7 @@ def render_index(specs, tpl, kit):
         body += '</div>'
     sec = section('index', 'The rundown', 'Every skill, and how to actually use it', body)
     return fill(tpl, kit, {'DOCTITLE': 'Skill guides — ' + center, 'TITLE': 'Skill guides', 'TAGLINE': 'How to use every skill in the %s toolkit' % center,
-                           'PLUGIN': kit['badge'], 'TYPE': '%d guides' % len(specs), 'UPDATED': datetime.date.today().isoformat(), 'VERSION': '',
+                           'PLUGIN': kit['badge'], 'TYPE': '%d guide%s' % (len(specs), '' if len(specs) == 1 else 's'), 'UPDATED': datetime.date.today().isoformat(), 'VERSION': '',
                            'DESCRIPTION': 'Index of skill guides', 'TOC': '', 'SECTIONS': sec, 'SOURCE': ''})
 
 def main():
