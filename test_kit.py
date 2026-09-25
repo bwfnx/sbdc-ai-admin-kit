@@ -67,8 +67,32 @@ def test_copies_in_sync():
     for key in ('slug', 'title', 'tagline', 'type', 'source', 'summary', 'never', 'have_ready', 'setup', 'use', 'faq'):
         assert key in tmpl, 'guide-spec-template.json missing ' + key
 
+def test_gpts_to_md():
+    """A folder of Word/text exports becomes one my-gpts.md with a ## section per file."""
+    import zipfile
+    tmp = tempfile.mkdtemp()
+    folder = os.path.join(tmp, 'My GPTs')
+    os.makedirs(folder)
+    W = 'xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"'
+    xml = ('<w:document %s><w:body><w:p><w:r><w:t>You write social posts.</w:t></w:r></w:p>'
+           '<w:tbl><w:tr><w:tc><w:p><w:r><w:t>Never</w:t></w:r><w:r><w:t xml:space="preserve"> invent results.</w:t></w:r></w:p></w:tc></w:tr></w:tbl>'
+           '</w:body></w:document>') % W
+    with zipfile.ZipFile(os.path.join(folder, 'Marketing Helper.docx'), 'w') as z: z.writestr('word/document.xml', xml)
+    open(os.path.join(folder, 'Loan Check.txt'), 'w', encoding='utf-8').write('Ask for net operating income.')
+    open(os.path.join(folder, '~$rketing Helper.docx'), 'wb').write(b'lock')   # Word's lock file: skipped
+    open(os.path.join(folder, 'Old One.doc'), 'wb').write(b'\xd0\xcf')          # legacy .doc: reported, not read
+    r = subprocess.run([sys.executable, os.path.join(HERE, 'tools', 'gpts-to-md.py'), folder], check=True, capture_output=True, text=True)
+    md = open(os.path.join(tmp, 'my-gpts.md'), encoding='utf-8').read()
+    assert '## Loan Check\n\nAsk for net operating income.' in md
+    assert '## Marketing Helper\n\nYou write social posts.\nNever invent results.' in md
+    assert md.index('## Loan Check') < md.index('## Marketing Helper')      # sorted by name
+    assert '~$' not in md and 'Old One' not in md
+    assert 'Old One.doc' in r.stdout and '2 GPTs' in r.stdout
+    shutil.rmtree(tmp)
+
 if __name__ == '__main__':
     test_generator()
     test_converter_own_guide_spec_renders()
     test_copies_in_sync()
+    test_gpts_to_md()
     print('ok')

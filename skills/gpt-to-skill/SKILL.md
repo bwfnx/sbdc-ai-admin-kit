@@ -33,7 +33,7 @@ Don't use it to:
 
     <the full Instructions box, pasted as-is>
 
-Markdown or plain text is best. Word files work but add nothing. One file avoids per-message upload limits, and GPT instructions are capped at 8,000 characters each, so even thirty GPTs fit.
+Markdown or plain text is best. Word files work but add nothing. Already saved each GPT as its own Word file? The kit's `tools/gpts-to-md.py` combines a whole folder of them into this format in one step, on your own computer. One file avoids per-message upload limits, and GPT instructions are capped at 8,000 characters each, so even thirty GPTs fit.
 
 **For convert:** the same block for one GPT (or its conversion card), plus the actual Knowledge files — the originals you uploaded (the Configure page lists their names under Knowledge).
 
