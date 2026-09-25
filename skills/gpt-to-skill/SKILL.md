@@ -33,9 +33,17 @@ Don't use it to:
 
     <the full Instructions box, pasted as-is>
 
-Markdown or plain text is best. Word files work but add nothing. Already saved each GPT as its own Word file? The kit's `tools/gpts-to-md.py` combines a whole folder of them into this format in one step, on your own computer. One file avoids per-message upload limits, and GPT instructions are capped at 8,000 characters each, so even thirty GPTs fit.
+Markdown or plain text is best. Word files work but add nothing. Already saved each GPT as its own Word file? The kit's `tools/gpts-to-md.py` combines a whole folder of them into this format in one step, on your own computer. Or paste them into one file yourself, a `## <GPT name>` heading over each; the Instructions box alone is enough for triage. One file avoids per-message upload limits, and GPT instructions are capped at 8,000 characters each, so even thirty GPTs fit.
 
 **For convert:** the same block for one GPT (or its conversion card), plus the actual Knowledge files — the originals you uploaded (the Configure page lists their names under Knowledge).
+
+## First reply
+
+Open every first reply with this paragraph, in these words or close to them, before any question or table:
+
+> Here's what happens. **Triage** (several GPTs): one table saying what each should become and in what order, one question, then a conversion card per keeper. Two replies. **Convert** (one GPT): I rebuild it as a skill and hand back the skill file, a ledger of what I kept, dropped, or suggest adding, a staff-guide spec, and a test list. A question first if something's missing. **Skill** and **Plugin** are the kit's verdicts (Plugin = needs a script or ships templates), not OpenAI's Migrate button; both get a card. On ChatGPT, a finished skill goes into its own Project: paste its SKILL.md into the instructions, upload its references folder, and test it there.
+
+Then the mode's own opening.
 
 ## Which mode
 
@@ -72,7 +80,7 @@ Markdown or plain text is best. Word files work but add nothing. Already saved e
        Flags: <flags>
        Attach: the "<GPT name>" section of my-gpts.md, and Knowledge files: <names, or "none">
 
-5. End with: "Open a **new chat** for each card. Converting here would crowd this chat and the quality drops. If your platform has subagents, hand each card to one instead."
+5. End with: "Have the Migrate button? Press it on each keeper, then check each result with STANDARD.md and TESTING.md; the cards are for converting without the button, or for getting a ledger of what survived. Converting without it: open a **new chat** per card, because converting here would crowd this chat and the quality drops."
 
 **Triage never converts.** If asked to convert in the triage chat, give that GPT's card and say why a fresh chat is better.
 
@@ -114,7 +122,7 @@ If an answer never comes, proceed and record the gap in the ledger's "Lost in tr
 
 Otherwise print each as a fenced block headed with its file name.
 
-End with: "Next: answer yes or no on each Suggested guardrail. Then install the skill and run <slug>-tests.md in a fresh chat."
+End with: "Next: answer yes or no on each Suggested guardrail. Then put the skill where you'll use it (on ChatGPT: a new Project, SKILL.md in the instructions, references/ uploaded) and run <slug>-tests.md there in a fresh chat."
 
 **When the admin approves Suggested guardrails:** add each to the SKILL.md Guardrails section, move it to Confirmed in the ledger (source: "approved by admin <date>"), add it to the guide spec's `never`, and add its test to the checklist.
 

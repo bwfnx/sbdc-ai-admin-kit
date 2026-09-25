@@ -52,14 +52,17 @@ def render(spec, tpl, kit):
         body = '<p>' + (spec.get('connects_note') or 'Everything here is read-only unless the row says otherwise.') + '</p><div class="tablescroll"><table class="tt" style="min-width:0;"><thead><tr><th>Source</th><th>What it reads</th><th>What it does with it</th></tr></thead><tbody>' + rows(spec['connects'], ['source', 'reads', 'does']) + '</tbody></table></div>'
         parts.append(section('connects', 'Step %d' % n, 'What it connects to', body)); n += 1
     # Setup
-    body = '<div class="two"><div><h3>Getting it on your side</h3><p class="sub">The skill is plain instructions, so it runs wherever you already work. Pick your row:</p><ol class="steps">'
-    body += '<li>' + kit['files_step'] + '</li>'
+    lead = kit.get('setup_lead') or 'The skill is plain instructions, so it runs wherever you already work. Pick your row:'
+    body = '<div class="two"><div><h3>Getting it on your side</h3><p class="sub">' + lead + '</p><ol class="steps">'
+    if kit.get('files_step'): body += '<li>' + kit['files_step'] + '</li>'
     if plug.get('install_cowork'):
         body += '<li><b>Claude desktop app:</b> download <code>%s</code> from %s, drag it into a chat, click <b>Accept</b>.</li>' % (e(plug['install_cowork']), kit['cowork_where'])
     gpt = spec.get('chatgpt_url') or plug.get('chatgpt_url')
     repo, only = kit.get('source_repo'), kit.get('only_plugin') or ''
     if gpt:
         chat = 'open the GPT: <a href="%s" target="_blank" rel="noopener">%s</a>. Same skill, same outputs.' % (e(gpt), e(gpt))
+    elif spec.get('chatgpt_note'):
+        chat = spec['chatgpt_note']
     elif repo:
         # A skill is a Markdown file, so any assistant that accepts custom instructions can run it. Link the actual file.
         src = spec.get('source', '')

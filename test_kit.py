@@ -46,6 +46,15 @@ def test_generator():
     assert 'Skill guides — Hawaii SBDC' in index and 'Maryland SBDC toolkit' not in index
     shutil.rmtree(tmp)
 
+    # a kit with no files_step and its own lead-in; a spec with its own ChatGPT row
+    own = dict(spec, chatgpt_note='paste it into a new Project.')
+    k2 = dict(kit, files_step='', setup_lead='On ChatGPT, do row 1.')
+    tmp, out = build(k2, [own])
+    page = read(out, spec['slug'] + '.html')
+    assert 'On ChatGPT, do row 1.' in page and 'paste it into a new Project.' in page
+    assert kit['files_step'] not in page and 'Pick your row' not in page
+    shutil.rmtree(tmp)
+
 def test_converter_own_guide_spec_renders():
     """The converter's own worked-example guide spec must render, not just parse (Important 2)."""
     spec_path = os.path.join(HERE, 'examples', 'transcript-to-action-plan', 'after',

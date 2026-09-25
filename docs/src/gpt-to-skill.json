@@ -6,14 +6,18 @@
   "plugin": {
     "name": "sbdc-ai-admin-kit",
     "label": "SBDC AI Admin Kit",
-    "install_code": ["/plugin marketplace add bwfnx/sbdc-ai-admin-kit", "/plugin install sbdc-ai-admin-kit@sbdc-ai-admin"]
+    "install_code": [
+      "/plugin marketplace add bwfnx/sbdc-ai-admin-kit",
+      "/plugin install sbdc-ai-admin-kit@sbdc-ai-admin"
+    ]
   },
   "version": "",
   "updated": "2026-09-25",
   "source": "sbdc-ai-admin-kit/skills/gpt-to-skill/SKILL.md",
+  "chatgpt_note": "open <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/skills/gpt-to-skill/SKILL.md\" target=\"_blank\" rel=\"noopener\">skills/gpt-to-skill/SKILL.md</a>, click <b>Raw</b>, copy everything, and paste it into a new Project's instructions. Then upload the five files in <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit/tree/main/skills/gpt-to-skill/references\" target=\"_blank\" rel=\"noopener\">skills/gpt-to-skill/references</a> to the same Project; the ledger and test list are built from them. Not a custom GPT: the file is bigger than the 8,000-character Instructions box.",
   "summary": [
     "<b>Read this first if you just downloaded the kit:</b> you may not need this skill at all. If your ChatGPT workspace has the one-click GPT migration, use it to convert. Then check each result with the kit's <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/STANDARD.md\">Skill Standard</a> and <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/TESTING.md\">testing method</a> before advisors touch it. That's the whole job for most centers.",
-    "Use this skill when you have no migration button (Claude, or a workspace without it), or when you want help deciding what to migrate. It has two modes. <b>Triage</b> reads all your GPTs at once and says what each should become: a Skill, a Plugin, an Agent, merged into another, or retired. <b>Convert</b> turns one GPT into a skill, in its own chat, and hands you a ledger of what it kept, what it couldn't carry over, and which new guardrails it suggests.",
+    "Use this skill when you have no migration button (Claude, or a workspace without it), when you want a receipt of which rules survived, or when you want help deciding what to migrate. It has two modes. <b>Triage</b> reads all your GPTs at once and says what each should become: a Skill, a Plugin, an Agent, merged into another, or retired. <b>Convert</b> turns one GPT into a skill, in its own chat, and hands you a ledger of what it kept, what it couldn't carry over, and which new guardrails it suggests.",
     "It's for the person running AI at your center, not for advisors. Written for Maryland and points at Neoserra &mdash; check anything that touches your own CRM, programs, or reporting rules before you lean on it. MIT and unsupported &mdash; fork it, change it, don't wait on me."
   ],
   "never": [
@@ -28,15 +32,15 @@
     "Merge and Retire are recommendations, never decisions."
   ],
   "have_ready": [
-    "<b>For triage:</b> one file, <code>my-gpts.md</code>, with every GPT in it: a <code>## GPT name</code> heading, then its Description, Conversation starters, Knowledge file names, Capabilities, and the whole Instructions box, all copied from each GPT's Configure page.",
-    "<b>Already saved each GPT as its own Word file?</b> Don't re-paste. Put them in one folder, name each file after its GPT, and run <code>py tools/gpts-to-md.py \"C:\\Users\\you\\Desktop\\My GPTs\"</code> from the kit. It writes <code>my-gpts.md</code> for you, on your own computer.",
+    "<b>For triage:</b> one file, <code>my-gpts.md</code>, with every GPT in it: a <code>## GPT name</code> heading, then its Description, Conversation starters, Knowledge file names, Capabilities, and the whole Instructions box, all copied from each GPT's Configure page. Only have the Instructions box? That's enough for triage.",
+    "<b>Already saved each GPT as its own Word file?</b> Paste them into one Word document, type <code>##</code> and the GPT's name on the line above each one, and save it. Word, plain text, or Markdown all work, and the Instructions box alone is enough for triage. Put all of them in: triage can only spot duplicates it can see. (Have Python? <code>py tools/gpts-to-md.py \"C:\\Users\\you\\Desktop\\My GPTs\"</code> does the pasting for you.)",
     "<b>For convert:</b> the conversion card triage gave you (or that GPT's section of <code>my-gpts.md</code>), plus the GPT's actual Knowledge files &mdash; the originals you uploaded."
   ],
   "connects": [],
   "setup": {
     "steps": [
-      "<b>ChatGPT Skills:</b> on the <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit\" target=\"_blank\" rel=\"noopener\">repository page</a>, click the green <b>Code</b> button, then <b>Download ZIP</b>. Unzip it and upload the <code>skills/gpt-to-skill</code> folder at chatgpt.com/skills.",
-      "<b>ChatGPT Work mode or Codex:</b> switch the chat to Work mode (a regular chat can't install from GitHub) and say <code>install https://github.com/bwfnx/sbdc-ai-admin-kit</code>."
+      "<b>ChatGPT Work mode</b> (Business and Enterprise workspaces): say <code>install https://github.com/bwfnx/sbdc-ai-admin-kit</code>. A regular chat can't install from GitHub.",
+      "<b>chatgpt.com/skills:</b> on the <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit\" target=\"_blank\" rel=\"noopener\">repository page</a>, click the green <b>Code</b> button, then <b>Download ZIP</b>, unzip it, and upload the <code>skills/gpt-to-skill</code> folder. Untested here."
     ],
     "first_say": "Triage my GPTs",
     "asks": [
@@ -46,7 +50,12 @@
     "note": "Then open a <b>new chat</b> for each GPT you convert. That one habit matters more than anything else on this page: converting in a crowded chat is where quality drops."
   },
   "use": {
-    "say": ["triage my GPTs", "convert this GPT to a skill", "migrate my GPTs", "turn these GPT instructions into a SKILL.md"],
+    "say": [
+      "triage my GPTs",
+      "convert this GPT to a skill",
+      "migrate my GPTs",
+      "turn these GPT instructions into a SKILL.md"
+    ],
     "returns": [
       "<b>Triage:</b> one table &mdash; each GPT's purpose, its verdict (Skill, Plugin, Agent, Merge, Retire), risk flags (<code>knowledge</code>, <code>client-data</code>, <code>web/apps</code>, <code>no-refusals</code>, <code>math</code>), and a suggested order. Then a <b>conversion card</b> for each Skill or Plugin, ready to paste into a new chat.",
       "<b>Convert:</b> three summary lines (the skill's name; counts of confirmed guardrails, suggested guardrails, things lost, and script candidates; the one thing to look at first), then the skill folder to upload, a guardrail ledger, a guide spec for a staff page, and a test checklist."
@@ -62,15 +71,25 @@
     ]
   },
   "faq": [
-    { "q": "I just downloaded the kit. What do I do first?",
-      "a": "Three things, in order. 1) Convert your GPTs, with ChatGPT's one-click migration if you have it, or with this skill if you don't. 2) Before advisors touch any of them, score each against <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/STANDARD.md\">STANDARD.md</a> and run it cold with <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/TESTING.md\">TESTING.md</a>. 3) Give staff a one-page guide for each skill. Everything else in the kit is optional." },
-    { "q": "OpenAI has a one-click migration. Why would I use this?",
-      "a": "For the conversion itself, you probably won't. Use this skill if you have no button, if you're moving to Claude, or if you want triage first: which GPTs are duplicates, which should be agents, which to retire. Either way, the check in step 2 is the part that matters." },
-    { "q": "I have thirty GPTs saved as thirty Word files.",
-      "a": "Put them in one folder, name each file after its GPT, and run <code>py tools/gpts-to-md.py \"&lt;that folder&gt;\"</code>. No Python? In ChatGPT Work mode, Codex, or Claude, say \"run tools/gpts-to-md.py from the sbdc-ai-admin-kit repo on my GPTs folder.\"" },
-    { "q": "Does the converted skill just work?",
-      "a": "Not until you've tested it. The skill won't tell you it works, on purpose. Run the test checklist it gives you in a fresh chat, and read the Lost in translation table." },
-    { "q": "Who do I ask when I'm stuck?",
-      "a": "It's MIT and unsupported, so fork it and change it. Brandon Mason (Maryland SBDC) is happy to compare notes on the AI-Interest-Section thread." }
+    {
+      "q": "I just downloaded the kit. What do I do first?",
+      "a": "Three things, in order. 1) Convert your GPTs, with ChatGPT's one-click migration if you have it, or with this skill if you don't. 2) Before advisors touch any of them, score each against <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/STANDARD.md\">STANDARD.md</a> and run it cold with <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/TESTING.md\">TESTING.md</a>. 3) Give staff a one-page guide for each skill. Everything else in the kit is optional."
+    },
+    {
+      "q": "OpenAI has a one-click migration. Why would I use this?",
+      "a": "For the conversion itself, you probably won't. Use this skill if you have no button, if you're moving to Claude, or if you want triage first: which GPTs are duplicates, which should be agents, which to retire. Either way, the check in step 2 is the part that matters."
+    },
+    {
+      "q": "I have thirty GPTs saved as thirty Word files.",
+      "a": "Paste them into one Word document with <code>##</code> and the GPT's name above each, save it, and attach it. Instructions alone is enough for triage. Have Python? <code>py tools/gpts-to-md.py \"&lt;that folder&gt;\"</code> does the pasting for you."
+    },
+    {
+      "q": "Does the converted skill just work?",
+      "a": "Not until you've tested it. The skill won't tell you it works, on purpose. Run the test checklist it gives you in a fresh chat, and read the Lost in translation table."
+    },
+    {
+      "q": "Who do I ask when I'm stuck?",
+      "a": "It's MIT and unsupported, so fork it and change it. Brandon Mason (Maryland SBDC) is happy to compare notes on the AI-Interest-Section thread."
+    }
   ]
 }

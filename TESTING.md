@@ -4,8 +4,6 @@
 
 A migration will always produce *something*. The question is whether what comes out still asks the right questions, still refuses what it should refuse, and still gives you your format. You find out by running it cold — the way a first-timer would hit it — and throwing the ugly stuff at it.
 
-**The one-line version:** open a fresh chat with the skill installed and say *"Run an ablation experiment on this skill."* Then do the rest of this page anyway.
-
 ## How to run it
 
 1. **Fresh chat, skill installed, nothing else in the conversation.** Old context hides problems.
