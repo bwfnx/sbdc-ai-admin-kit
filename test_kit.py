@@ -138,9 +138,17 @@ def test_gpts_to_md():
     assert 'Old Output' not in open(folder_out, encoding='utf-8').read()
     shutil.rmtree(tmp)
 
+def test_skill_text():
+    """SKILL.md carries Collect mode and points at the combiner where the skill ships it."""
+    s = open(os.path.join(HERE, 'skills', 'gpt-to-skill', 'SKILL.md'), encoding='utf-8').read()
+    assert '## Collect' in s and 'scripts/gpts-to-md.py' in s
+    assert "say 'that's all'" in s and 'fenced block headed `my-gpts.md`' in s
+    assert 'tools/gpts-to-md.py' not in s
+
 if __name__ == '__main__':
     test_generator()
     test_converter_own_guide_spec_renders()
     test_copies_in_sync()
     test_gpts_to_md()
+    test_skill_text()
     print('ok')

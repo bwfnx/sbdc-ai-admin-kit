@@ -23,7 +23,7 @@ Don't use it to:
 
 ## What to have ready
 
-**For triage:** one file, `my-gpts.md`, with every GPT in it like this:
+**For triage:** your GPT files, attached (Word, text, or Markdown; one per GPT, named for the GPT; ten per message), or one file, `my-gpts.md`, with every GPT in it like this:
 
     ## <GPT name>
     Description: <all from the GPT's Configure page>
@@ -33,24 +33,39 @@ Don't use it to:
 
     <the full Instructions box, pasted as-is>
 
-Markdown or plain text is best. Word files work but add nothing. Already saved each GPT as its own Word file? The kit's `tools/gpts-to-md.py` combines a whole folder of them into this format in one step, on your own computer. Or paste them into one file yourself, a `## <GPT name>` heading over each; the Instructions box alone is enough for triage. One file avoids per-message upload limits, and GPT instructions are capped at 8,000 characters each, so even thirty GPTs fit.
+Markdown or plain text is best. Word files work but add nothing. Already saved each GPT as its own Word file? Attach them and Collect mode (below) builds `my-gpts.md` for you with `scripts/gpts-to-md.py`; on your own computer the same script combines a whole folder in one step. Or paste them into one file yourself, a `## <GPT name>` heading over each. The Instructions box alone is enough for triage. One file avoids per-message upload limits, and GPT instructions are capped at 8,000 characters each, so even thirty GPTs fit.
 
 **For convert:** the same block for one GPT (or its conversion card), plus the actual Knowledge files — the originals you uploaded (the Configure page lists their names under Knowledge).
 
 ## First reply
 
-Open every first reply with this paragraph, in these words or close to them, before any question or table:
+Open every first reply with "Here's what happens." and the one line for the mode you are in, then the two shared sentences, before any question or table:
 
-> Here's what happens. **Triage** (several GPTs): one table saying what each should become and in what order, one question, then a conversion card per keeper. Two replies. **Convert** (one GPT): I rebuild it as a skill and hand back the skill file, a ledger of what I kept, dropped, or suggest adding, a staff-guide spec, and a test list. A question first if something's missing. **Skill** and **Plugin** are the kit's verdicts (Plugin = needs a script or ships templates), not OpenAI's Migrate button; both get a card. On ChatGPT, a finished skill goes into its own Project: paste its SKILL.md into the instructions, upload its references folder, and test it there.
+- **Collect** (several GPT files attached): "I'll combine these into one `my-gpts.md`, hand it back, then sort it. Ten files per message; say 'more coming' between batches and 'that's all' when done."
+- **Triage** (several GPTs in one file): "One table saying what each should become and in what order, one question, then a conversion card per keeper. Two replies."
+- **Convert** (one GPT): "I rebuild it as a skill and hand back the skill file, a ledger of what I kept, dropped, or suggest adding, a staff-guide spec, and a test list. A question first if something's missing."
+
+Shared, always: "**Skill** and **Plugin** are the kit's verdicts (Plugin = needs a script or ships templates), not OpenAI's Migrate button; both get a card. On ChatGPT, a finished skill goes into its own Project: paste its SKILL.md into the instructions, upload its references and scripts folders, and test it there."
 
 Then the mode's own opening.
 
 ## Which mode
 
-- No GPT in the input, or the input isn't GPT instructions (a flyer, a transcript, a spreadsheet) → say what you received and ask: "Paste or attach your GPT the way 'What to have ready' shows — one `## <GPT name>` block per GPT." Don't triage or convert anything else.
+- Several attached files (.docx, .txt, .md) and no `my-gpts` file → **Collect**, then Triage.
+- One attached file that is not `my-gpts` and no card → it is one GPT: **Convert** if the message asks to convert, otherwise ask: "Do you want me to convert this one GPT, or is there more to sort?"
+- No GPT in the input, or the input isn't GPT instructions (a flyer, a transcript, a spreadsheet) → say what you received and ask: "Paste or attach your GPT the way 'What to have ready' shows — one `## <GPT name>` block per GPT, or the GPT files themselves." Don't triage or convert anything else.
 - A conversion card, or a request to convert one named GPT → **Convert**, using only that GPT's section even if the file holds others.
 - More than one GPT and no card → **Triage**.
 - Can't tell → ask: "Do you want me to triage several GPTs, or convert one?"
+
+## Collect
+
+1. If the message says "more coming", reply only: "Got <N> so far. Send the next batch, and say 'that's all' when done." Combine nothing yet.
+2. On "that's all" (or a batch with no such note): run `scripts/gpts-to-md.py` on the attached GPT files by name, with `-o my-gpts.md`. Name the files; never run it on the whole folder, which holds this skill's own files.
+3. Hand back `my-gpts.md` as a download, repeat the script's "skipped:" lines verbatim if there are any, and go straight into Triage on it in the same reply.
+4. No Python here? Say so in one line, print the combined file as a fenced block headed `my-gpts.md` (a `## <file name>` heading over each file's text, in the order attached), tell the admin to save it under that name if they want to keep it, and triage from that text.
+
+Collect reads only the attached GPT files. It never opens Knowledge files.
 
 ## Triage
 
@@ -140,4 +155,4 @@ End with: "Next: answer yes or no on each Suggested guardrail. Then put the skil
 
 ## Needs
 
-File upload (for Knowledge files and `my-gpts.md`). Nothing else: no web search, no connectors, no code.
+File upload (for GPT files, Knowledge files, and `my-gpts.md`). The Python tool, for Collect mode only; without it Collect prints the file instead. No web search, no connectors.
