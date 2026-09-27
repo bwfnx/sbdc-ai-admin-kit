@@ -117,13 +117,24 @@ def test_gpts_to_md():
     assert 'skipped: nope.docx (not found)' in r.stdout
     assert r.stdout.count('skipped:') == 1
     assert 'Combined from 3 files.' in md2
+    # file mode with nothing to combine writes nothing and fails loudly
+    keep = os.path.join(tmp, 'keep', 'my-gpts.md'); os.makedirs(os.path.dirname(keep))
+    open(keep, 'w', encoding='utf-8').write('hand edited')
+    r = subprocess.run([sys.executable, os.path.join(HERE, 'tools', 'gpts-to-md.py'), os.path.join(tmp, 'keep', 'My GPT')],
+                       capture_output=True, text=True)
+    assert r.returncode != 0 and 'nothing to combine' in (r.stdout + r.stderr) and 'skipped: My GPT (not found)' in r.stdout
+    assert open(keep, encoding='utf-8').read() == 'hand edited'
+    # a folder handed to file mode is "(not a file)"; the default output lands next to the first real file
+    r = subprocess.run([sys.executable, os.path.join(HERE, 'tools', 'gpts-to-md.py'), folder, os.path.join(dup, 'Loan Check.txt')],
+                       check=True, capture_output=True, text=True)
+    assert 'skipped: %s (not a file)' % os.path.basename(folder) in r.stdout
+    assert os.path.exists(os.path.join(dup, 'my-gpts.md'))
     # a folder run stays quiet about the .py sitting in it, and never re-ingests its own prior output
     open(os.path.join(folder, 'my-gpts.md'), 'w', encoding='utf-8').write('## Old Output\n\nstale')
     folder_out = os.path.join(tmp, 'folder.md')
     r = subprocess.run([sys.executable, os.path.join(HERE, 'tools', 'gpts-to-md.py'), folder, '-o', folder_out],
                        check=True, capture_output=True, text=True)
     assert 'gpts-to-md.py' not in r.stdout
-    assert 'my-gpts.md' not in r.stdout
     assert 'Old Output' not in open(folder_out, encoding='utf-8').read()
     shutil.rmtree(tmp)
 

@@ -42,14 +42,16 @@ def main():
         label, default_out = os.path.basename(folder), os.path.join(os.path.dirname(folder), 'my-gpts.md')
     else:
         files = [os.path.abspath(p) for p in a.paths]
-        default_out = os.path.join(os.path.dirname(files[0]), 'my-gpts.md')
+        first_existing = next((p for p in files if os.path.isfile(p)), None)
+        default_out = os.path.join(os.path.dirname(first_existing), 'my-gpts.md') if first_existing else None
     out = a.out or default_out
     sections, skipped, seen = [], [], {}
     for path in files:
         name = os.path.basename(path); stem, ext = os.path.splitext(name); ext = ext.lower()
         if name.startswith('~$') or ext == '.py' or name.lower() == 'my-gpts.md': continue   # Word's lock files; the kit's own scripts; our own output
         if not os.path.isfile(path):
-            if not folder_mode: skipped.append(name + ' (not found)')
+            if not folder_mode:
+                skipped.append(name + (' (not found)' if not os.path.exists(path) else ' (not a file)'))
             continue
         try:
             if ext == '.docx': text = docx_text(path)
@@ -64,6 +66,10 @@ def main():
         seen[stem] = seen.get(stem, 0) + 1
         if seen[stem] > 1: stem = '%s (%d)' % (stem, seen[stem])
         sections.append('## %s\n\n%s\n' % (stem, text))
+    if not folder_mode and not sections:
+        for s in skipped: print('  skipped:', s)
+        print('nothing to combine')
+        sys.exit(1)
     if not folder_mode: label = '%d files' % len(sections)
     head = ('# My GPTs\n\nCombined from %s. One section per file; the file name is the GPT name. '
             'Add Description, Conversation starters, Knowledge file names and Capabilities under a heading '
