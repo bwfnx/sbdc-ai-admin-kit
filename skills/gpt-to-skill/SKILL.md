@@ -1,13 +1,13 @@
 ---
 name: gpt-to-skill
-description: Turn custom GPTs into skills. TRIAGE mode takes every GPT's instructions at once (one my-gpts.md file, a "## GPT Name" heading over each) and sorts each into Skill, Plugin, Agent, Merge, or Retire, flags the risky ones, and writes a conversion card for each. CONVERT mode takes one GPT per chat (its Instructions, Description, Conversation starters, and Knowledge files) and returns a SKILL.md, a guardrail ledger, a staff-guide spec, and a cold-test checklist. Use when someone says "triage my GPTs", "convert this GPT to a skill", "migrate my GPTs", "turn these GPT instructions into a SKILL.md", or pastes a conversion card.
+description: Turn custom GPTs into skills. COLLECT mode takes the GPT files themselves, attached (Word, text, or Markdown, one per GPT), builds my-gpts.md, and hands it back. TRIAGE mode takes every GPT's instructions at once (one my-gpts.md file, a "## GPT Name" heading over each) and sorts each into Skill, Plugin, Agent, Merge, or Retire, flags the risky ones, and writes a conversion card for each. CONVERT mode takes one GPT per chat (its Instructions, Description, Conversation starters, and Knowledge files) and returns a SKILL.md, a guardrail ledger, a staff-guide spec, and a cold-test checklist. Use when someone says "triage my GPTs", "convert this GPT to a skill", "migrate my GPTs", "turn these GPT instructions into a SKILL.md", or pastes a conversion card.
 ---
 
 # GPT to Skill
 
 Custom GPTs are being retired (OpenAI's date for Enterprise workspaces is December 11, 2026; Business workspaces show the same notice). This skill moves them to skills without losing what made them work: the questions they ask, the things they refuse, and the format they hand back. It is for the person running AI at an SBDC, not for advisors.
 
-It has two modes. **Triage** looks at all your GPTs at once and decides what each should become. **Convert** turns one GPT into a skill, in its own chat.
+It has three modes. **Collect** turns a pile of attached GPT files into one `my-gpts.md`. **Triage** looks at all your GPTs at once and decides what each should become. **Convert** turns one GPT into a skill, in its own chat.
 
 > Written for Maryland and points at Neoserra — check anything that touches your own CRM, programs, or reporting rules before you lean on it. MIT and unsupported — fork it, change it, don't wait on me.
 
@@ -51,16 +51,16 @@ Then the mode's own opening.
 
 ## Which mode
 
-- Several attached files (.docx, .txt, .md) and no `my-gpts` file → **Collect**, then Triage.
-- One attached file that is not `my-gpts` and no card → it is one GPT: **Convert** if the message asks to convert, otherwise ask: "Do you want me to convert this one GPT, or is there more to sort?"
 - No GPT in the input, or the input isn't GPT instructions (a flyer, a transcript, a spreadsheet) → say what you received and ask: "Paste or attach your GPT the way 'What to have ready' shows — one `## <GPT name>` block per GPT, or the GPT files themselves." Don't triage or convert anything else.
-- A conversion card, or a request to convert one named GPT → **Convert**, using only that GPT's section even if the file holds others.
+- A conversion card, or a request to convert one named GPT → **Convert**, using only that GPT's section even if the file holds others. Attached files are then Knowledge files, not GPTs.
+- Several attached GPT files (.docx, .txt, .md), no `my-gpts` file, and no card → **Collect**, then Triage.
+- One attached file that is not `my-gpts`, no card, and no request to convert → ask: "Do you want me to convert this one GPT, or is there more to sort?"
 - More than one GPT and no card → **Triage**.
 - Can't tell → ask: "Do you want me to triage several GPTs, or convert one?"
 
 ## Collect
 
-1. If the message says "more coming", reply only: "Got <N> so far. Send the next batch, and say 'that's all' when done." Combine nothing yet.
+1. If the message says "more coming": give the first-reply intro if this is the first message, then only: "Got <N> so far. Send the next batch, and say 'that's all' when done." Combine nothing yet.
 2. On "that's all" (or a batch with no such note): run `scripts/gpts-to-md.py` on the attached GPT files by name, with `-o my-gpts.md`. Name the files; never run it on the whole folder, which holds this skill's own files.
 3. Hand back `my-gpts.md` as a download, repeat the script's "skipped:" lines verbatim if there are any, and go straight into Triage on it in the same reply.
 4. No Python here? Say so in one line, print the combined file as a fenced block headed `my-gpts.md` (a `## <file name>` heading over each file's text, in the order attached), tell the admin to save it under that name if they want to keep it, and triage from that text.
