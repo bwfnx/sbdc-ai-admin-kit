@@ -3,6 +3,7 @@
   "title": "GPT to Skill",
   "tagline": "Sort all your custom GPTs at once, then turn the keepers into skills, one per chat, with a record of what changed.",
   "type": "conversation",
+  "type_blurb": "You start it by saying what you want; it asks for what it needs and hands back a deliverable in the same chat. On ChatGPT it lives in a Project you set up once (Setting it up, row 1).",
   "plugin": {
     "name": "sbdc-ai-admin-kit",
     "label": "SBDC AI Admin Kit",
@@ -12,9 +13,9 @@
     ]
   },
   "version": "",
-  "updated": "2026-09-25",
+  "updated": "2026-09-26",
   "source": "sbdc-ai-admin-kit/skills/gpt-to-skill/SKILL.md",
-  "chatgpt_note": "open <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/skills/gpt-to-skill/SKILL.md\" target=\"_blank\" rel=\"noopener\">skills/gpt-to-skill/SKILL.md</a>, click <b>Raw</b>, copy everything, and paste it into a new Project's instructions. Then upload the files in <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit/tree/main/skills/gpt-to-skill/references\" target=\"_blank\" rel=\"noopener\">skills/gpt-to-skill/references</a> and <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit/tree/main/skills/gpt-to-skill/scripts\" target=\"_blank\" rel=\"noopener\">skills/gpt-to-skill/scripts</a> to the same Project; the ledger, the test list, and the file combiner come from them. Not a custom GPT: the file is bigger than the 8,000-character Instructions box.",
+  "chatgpt_note": "open <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/skills/gpt-to-skill/SKILL.md\" target=\"_blank\" rel=\"noopener\">skills/gpt-to-skill/SKILL.md</a>, click <b>Raw</b>, copy everything, and paste it into a new Project's instructions. Then get the kit's files: on the <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit\" target=\"_blank\" rel=\"noopener\">repository page</a>, click the green <b>Code</b> button, then <b>Download ZIP</b>, unzip it, and upload the files from <code>skills/gpt-to-skill/references</code> and <code>skills/gpt-to-skill/scripts</code> to the same Project (the GitHub folder pages have no download button); the ledger, the test list, and the file combiner come from them. Not a custom GPT: the file is bigger than the 8,000-character Instructions box.",
   "summary": [
     "<b>Two jobs.</b> Triage: give it all your GPTs and it tells you what each should become (Skill, Plugin, Agent, merge it, retire it) and which to do first. Convert: give it one GPT and it hands back a skill file plus a ledger: every rule it kept, everything it couldn't carry over, and the guardrails it thinks you're missing. The ledger is the receipt. Only want to convert? The Migrate button in ChatGPT does that in one click; then check the result with the kit's <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/STANDARD.md\">Skill Standard</a> and <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/TESTING.md\">testing method</a>. Use this skill when you want the receipt, when you have thirty GPTs and want to sort them first, or when you have no button.",
     "It has three modes. <b>Collect</b> turns a pile of attached GPT files into one <code>my-gpts.md</code> and hands it back. <b>Triage</b> reads all your GPTs at once and says what each should become: a Skill, a Plugin, an Agent, merged into another, or retired. <b>Convert</b> turns one GPT into a skill, in its own chat, and hands you a ledger of what it kept, what it couldn't carry over, and which new guardrails it suggests.",
@@ -33,7 +34,7 @@
   ],
   "have_ready": [
     "<b>For triage:</b> one file, <code>my-gpts.md</code>, with every GPT in it: a <code>## GPT name</code> heading, then its Description, Conversation starters, Knowledge file names, Capabilities, and the whole Instructions box, all copied from each GPT's Configure page. Only have the Instructions box? That's enough for triage.",
-    "<b>Already saved each GPT as its own Word file?</b> Attach them, ten per message, and say <i>Triage my GPTs</i>. The skill builds <code>my-gpts.md</code> and hands it back, then sorts it. No file comes back? It prints the combined file instead; save it as <code>my-gpts.md</code>, or paste your files into one Word document, <code>##</code> and the GPT's name above each, and attach that. Either way the Instructions box alone is enough for triage, and put all of them in: triage can only spot duplicates it can see.",
+    "<b>Already saved each GPT as its own Word file?</b> Attach them, ten per message, and say <i>Triage my GPTs</i>; more than ten? say <i>more coming</i> on each batch and <i>that's all</i> on the last. The skill builds <code>my-gpts.md</code> and hands it back, then sorts it. No file comes back? It prints the combined file instead; save it as <code>my-gpts.md</code>, or paste your files into one Word document, <code>##</code> and the GPT's name above each, and attach that. Either way the Instructions box alone is enough for triage, and put all of them in: triage can only spot duplicates it can see.",
     "<b>For convert:</b> the conversion card triage gave you (or that GPT's section of <code>my-gpts.md</code>), plus the GPT's actual Knowledge files &mdash; the originals you uploaded."
   ],
   "connects": [],
@@ -44,7 +45,7 @@
     ],
     "first_say": "Triage my GPTs",
     "asks": [
-      "your GPT files (Word is fine, ten per message), or your <code>my-gpts.md</code> if you already have one",
+      "your GPT files, attached before you send (Word is fine; ten per message; more than ten? say 'more coming' on each batch and 'that's all' on the last), or your <code>my-gpts.md</code> if you already have one",
       "which of your GPTs people use every day, so those go first (skipped if you only gave it one)"
     ],
     "note": "Then open a <b>new chat</b> for each GPT you convert. That one habit matters more than anything else on this page: converting in a crowded chat is where quality drops."
@@ -62,7 +63,7 @@
     ],
     "then": [
       "Answer yes or no on each <b>Suggested</b> guardrail in the ledger. Only the ones you approve go into the skill.",
-      "Put the new skill in its own Project (SKILL.md in the instructions, its references and scripts folders uploaded) and run its test checklist there in a fresh chat, the way a first-time user would. See <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/TESTING.md\">TESTING.md</a>.",
+      "Put the new skill in its own Project (SKILL.md in the instructions, its references folder uploaded) and run its test checklist there in a fresh chat, the way a first-time user would. See <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/TESTING.md\">TESTING.md</a>.",
       "Want a staff page like this one? Feed the guide spec to the kit's generator."
     ],
     "tips": [
@@ -73,15 +74,15 @@
   "faq": [
     {
       "q": "I just downloaded the kit. What do I do first?",
-      "a": "Three things, in order. 1) Convert your GPTs, with ChatGPT's one-click migration if you have it, or with this skill if you don't. 2) Before advisors touch any of them, score each against <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/STANDARD.md\">STANDARD.md</a> and run it cold with <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/TESTING.md\">TESTING.md</a>. 3) Give staff a one-page guide for each skill. Everything else in the kit is optional."
+      "a": "Which one are you? Have the Migrate button: press it on the GPTs people use, test each one cold with <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/TESTING.md\">TESTING.md</a>, and run the same GPT through this skill if you want a receipt of which rules survived. Thirty to sort, or no button: put this skill in a Project, attach your GPT files, say Triage my GPTs, and read the table. The <a href=\"https://bwfnx.github.io/sbdc-ai-admin-kit/\">front page</a> walks both doors."
     },
     {
       "q": "OpenAI has a one-click migration. Why would I use this?",
-      "a": "For the conversion itself, you probably won't. Use this skill if you have no button, if you're moving to Claude, or if you want triage first: which GPTs are duplicates, which should be agents, which to retire. Either way, the check in step 2 is the part that matters."
+      "a": "For the conversion itself, the button is fine. Use this skill for the receipt (a ledger of every rule kept, dropped, or suggested; the button gives you none), to sort thirty GPTs before you migrate any, or when you have no button. Either way, test each result cold before advisors touch it."
     },
     {
       "q": "I have thirty GPTs saved as thirty Word files.",
-      "a": "Attach them, ten per message, and say <i>Triage my GPTs</i>. The skill builds <code>my-gpts.md</code> for you and hands it back. No file comes back (no Python tool in your chat)? It prints the combined file instead; save it as my-gpts.md, or paste your files into one Word document with <code>##</code> and the GPT's name above each. Have Python on your own computer? <code>py skills/gpt-to-skill/scripts/gpts-to-md.py \"&lt;that folder&gt;\"</code> does the same thing there."
+      "a": "Attach them, ten per message, and say <i>Triage my GPTs</i>; more than ten? say <i>more coming</i> on each batch and <i>that's all</i> on the last. The skill builds <code>my-gpts.md</code> for you and hands it back. No file comes back (no Python tool in your chat)? It prints the combined file instead; save it as my-gpts.md, or paste your files into one Word document with <code>##</code> and the GPT's name above each. Have Python on your own computer? <code>py skills/gpt-to-skill/scripts/gpts-to-md.py \"&lt;that folder&gt;\"</code> does the same thing there."
     },
     {
       "q": "Does the converted skill just work?",

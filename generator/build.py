@@ -37,7 +37,7 @@ def render(spec, tpl, kit):
     parts = []
     # What you get
     body = ''.join('<p>' + p + '</p>' for p in spec.get('summary', []))
-    body += '<p class="sub"><b>%s.</b> %s</p>' % (TYPE_LABEL[t], TYPE_BLURB[t])
+    body += '<p class="sub"><b>%s.</b> %s</p>' % (TYPE_LABEL[t], spec.get('type_blurb') or TYPE_BLURB[t])
     if spec.get('never'): body += '<div class="panel"><h3 style="margin-top:0;">What it never does</h3><ul>' + li(spec['never']) + '</ul></div>'
     parts.append(section('what', 'Start here', 'What you get', body))
     # Scan / have ready
@@ -98,9 +98,9 @@ def render(spec, tpl, kit):
 
 def render_doors(d):
     """The front door: one question, two buttons, two three-step doors, a shelf. HTML allowed in steps, have, policy, shelf, caption."""
-    body = '<p>' + ' '.join('<a class="chip" href="#door-%d">%s</a>' % (i + 1, e(b)) for i, b in enumerate(d['buttons'])) + '</p>'
+    body = '<p>' + ' '.join('<a class="chip" href="#door-%d" style="display:inline-block;margin:0 .5rem .5rem 0">%s</a>' % (i + 1, e(b)) for i, b in enumerate(d['buttons'])) + '</p>'
     for i, door in enumerate(d['doors']):
-        body += '<div id="door-%d" class="panel"><h3 style="margin-top:0;">%s</h3><ol class="steps">%s</ol>' % (
+        body += '<div id="door-%d" class="panel" style="scroll-margin-top:8rem"><h3 style="margin-top:0;">%s</h3><ol class="steps">%s</ol>' % (
             i + 1, e(door['title']), ''.join('<li>' + s + '</li>' for s in door['steps']))
         r = door.get('receipt')
         if r:

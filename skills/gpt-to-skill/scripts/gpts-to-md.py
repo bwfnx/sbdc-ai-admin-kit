@@ -11,7 +11,7 @@ Runs entirely on your computer; nothing is uploaded. Python 3, nothing to instal
 Written for Maryland and points at Neoserra — check anything that touches your own CRM, programs, or reporting
 rules before you lean on it. MIT and unsupported — fork it, change it, don't wait on me.
 """
-import argparse, os, sys, zipfile
+import argparse, os, re, sys, zipfile
 import xml.etree.ElementTree as ET
 if hasattr(sys.stdout, 'reconfigure'): sys.stdout.reconfigure(encoding='utf-8')
 
@@ -63,14 +63,15 @@ def main():
             skipped.append(name + " (couldn't read it: open it and Save As .docx)"); continue
         text = text.strip()
         if not text: skipped.append(name + ' (empty)'); continue
+        text = re.sub(r'(?m)^(#{1,6})(?=[ \t])', r'##\1', text)   # headings inside a GPT's text are not new GPTs
         seen[stem] = seen.get(stem, 0) + 1
         if seen[stem] > 1: stem = '%s (%d)' % (stem, seen[stem])
         sections.append('## %s\n\n%s\n' % (stem, text))
-    if not folder_mode and not sections:
+    if not sections:
         for s in skipped: print('  skipped:', s)
         print('nothing to combine')
         sys.exit(1)
-    if not folder_mode: label = '%d files' % len(sections)
+    if not folder_mode: label = '%d file%s' % (len(sections), '' if len(sections) == 1 else 's')
     head = ('# My GPTs\n\nCombined from %s. One section per file; the file name is the GPT name. '
             'Add Description, Conversation starters, Knowledge file names and Capabilities under a heading '
             'if you have them; triage works on the instructions alone.\n\n' % label)

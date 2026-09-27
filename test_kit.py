@@ -154,6 +154,22 @@ def test_gpts_to_md():
                        check=True, capture_output=True, text=True)
     assert 'gpts-to-md.py' not in r.stdout
     assert 'Old Output' not in open(folder_out, encoding='utf-8').read()
+    # headings inside a GPT's text are demoted, so one GPT never splits into several; a one-file run says "1 file."
+    nested = os.path.join(tmp, 'Nested GPT.md')
+    open(nested, 'w', encoding='utf-8').write('## Name\nNested GPT\n## Instructions\nNever guess.')
+    out3 = os.path.join(tmp, 'nested-out.md')
+    subprocess.run([sys.executable, os.path.join(HERE, 'tools', 'gpts-to-md.py'), nested, '-o', out3], check=True, capture_output=True, text=True)
+    md3 = open(out3, encoding='utf-8').read()
+    assert '#### Name' in md3 and '#### Instructions' in md3, 'headings inside a GPT must be demoted'
+    assert [l for l in md3.splitlines() if l.startswith('## ')] == ['## Nested GPT'], 'one ## heading per file'
+    assert 'Combined from 1 file.' in md3, 'singular for one file'
+    # an empty folder fails loudly and leaves the my-gpts.md next to it alone
+    empty = os.path.join(tmp, 'empty-parent', 'Empty'); os.makedirs(empty)
+    beside = os.path.join(tmp, 'empty-parent', 'my-gpts.md')
+    open(beside, 'w', encoding='utf-8').write('hand edited')
+    r = subprocess.run([sys.executable, os.path.join(HERE, 'tools', 'gpts-to-md.py'), empty], capture_output=True, text=True)
+    assert r.returncode != 0 and 'nothing to combine' in r.stdout, 'empty folder must exit non-zero'
+    assert open(beside, encoding='utf-8').read() == 'hand edited', 'empty folder must not overwrite my-gpts.md'
     shutil.rmtree(tmp)
 
 def test_skill_text():
@@ -163,8 +179,9 @@ def test_skill_text():
     assert "say 'that's all'" in s and 'fenced block headed `my-gpts.md`' in s
     assert 'tools/gpts-to-md.py' not in s
     assert s.index('A conversion card, or a request') < s.index('→ **Collect**'), 'Convert must outrank Collect'
-    assert 'never run it on the whole folder' in s and 'Take the first line that fits.' in s
+    assert 'never run it on the whole folder' in s and 'Take the first line that fits' in s
     assert 'Attach only the GPT files, not their Knowledge files.' in s
+    assert 'stay in it until "that\'s all"' in s and 'full batch of ten with no note' in s and 'holding a single GPT' in s and 'even without one of those words' in s
 
 def test_readme_block():
     """The README's doors block is generated from the same kit.json object as the site index."""
