@@ -100,7 +100,7 @@ def render_doors(d):
     """The front door: one question, two buttons, two three-step doors, a shelf. HTML allowed in steps, have, policy, shelf, caption."""
     body = '<p>' + ' '.join('<a class="chip" href="#door-%d">%s</a>' % (i + 1, e(b)) for i, b in enumerate(d['buttons'])) + '</p>'
     for i, door in enumerate(d['doors']):
-        body += '<section id="door-%d" class="panel"><h3 style="margin-top:0;">%s</h3><ol class="steps">%s</ol>' % (
+        body += '<div id="door-%d" class="panel"><h3 style="margin-top:0;">%s</h3><ol class="steps">%s</ol>' % (
             i + 1, e(door['title']), ''.join('<li>' + s + '</li>' for s in door['steps']))
         r = door.get('receipt')
         if r:
@@ -108,7 +108,7 @@ def render_doors(d):
             body += ''.join('<tr>' + ''.join('<td>' + e(c) + '</td>' for c in row) + '</tr>' for row in r['rows']) + '</tbody></table></div>'
         body += '<p><b>You&rsquo;ll have:</b> ' + door['have'] + '</p>'
         if door.get('policy'): body += '<p>' + door['policy'] + '</p>'
-        body += '</section>'
+        body += '</div>'
     body += '<p class="sub" style="margin-top:var(--s4);">' + d['shelf'] + '</p>'
     return body
 
