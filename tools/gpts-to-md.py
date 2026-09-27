@@ -35,18 +35,22 @@ def main():
     ap.add_argument('paths', nargs='+', help='a folder holding one .docx / .md / .txt file per GPT, or the files themselves')
     ap.add_argument('-o', '--out', help='output file (default: my-gpts.md next to the folder, or next to the first file)')
     a = ap.parse_args()
-    if len(a.paths) == 1 and os.path.isdir(a.paths[0]):
+    folder_mode = len(a.paths) == 1 and os.path.isdir(a.paths[0])
+    if folder_mode:
         folder = os.path.abspath(a.paths[0])
         files = [os.path.join(folder, n) for n in sorted(os.listdir(folder), key=str.lower)]
         label, default_out = os.path.basename(folder), os.path.join(os.path.dirname(folder), 'my-gpts.md')
     else:
         files = [os.path.abspath(p) for p in a.paths]
-        label, default_out = '%d files' % len(files), os.path.join(os.path.dirname(files[0]), 'my-gpts.md')
+        default_out = os.path.join(os.path.dirname(files[0]), 'my-gpts.md')
     out = a.out or default_out
     sections, skipped, seen = [], [], {}
     for path in files:
         name = os.path.basename(path); stem, ext = os.path.splitext(name); ext = ext.lower()
-        if name.startswith('~$') or ext == '.py' or not os.path.isfile(path): continue   # Word's lock files; the kit's own scripts
+        if name.startswith('~$') or ext == '.py' or name.lower() == 'my-gpts.md': continue   # Word's lock files; the kit's own scripts; our own output
+        if not os.path.isfile(path):
+            if not folder_mode: skipped.append(name + ' (not found)')
+            continue
         try:
             if ext == '.docx': text = docx_text(path)
             elif ext in ('.md', '.txt'): text = open(path, encoding='utf-8-sig', errors='replace').read()
@@ -60,6 +64,7 @@ def main():
         seen[stem] = seen.get(stem, 0) + 1
         if seen[stem] > 1: stem = '%s (%d)' % (stem, seen[stem])
         sections.append('## %s\n\n%s\n' % (stem, text))
+    if not folder_mode: label = '%d files' % len(sections)
     head = ('# My GPTs\n\nCombined from %s. One section per file; the file name is the GPT name. '
             'Add Description, Conversation starters, Knowledge file names and Capabilities under a heading '
             'if you have them; triage works on the instructions alone.\n\n' % label)

@@ -108,15 +108,23 @@ def test_gpts_to_md():
     out2 = os.path.join(tmp, 'listed.md')
     r = subprocess.run([sys.executable, os.path.join(HERE, 'tools', 'gpts-to-md.py'),
                         os.path.join(folder, 'Loan Check.txt'), os.path.join(folder, 'Marketing Helper.docx'),
-                        os.path.join(dup, 'Loan Check.txt'), '-o', out2], check=True, capture_output=True, text=True)
+                        os.path.join(dup, 'Loan Check.txt'), os.path.join(folder, 'nope.docx'), '-o', out2],
+                       check=True, capture_output=True, text=True)
     md2 = open(out2, encoding='utf-8').read()
     assert '## Loan Check\n' in md2 and '## Marketing Helper\n' in md2 and '## Loan Check (2)\n' in md2
     assert 'not a GPT' not in md2 and 'print(1)' not in md2
-    assert '3 GPTs' in r.stdout and 'skipped' not in r.stdout
-    # a folder run stays quiet about the .py sitting in it
-    r = subprocess.run([sys.executable, os.path.join(HERE, 'tools', 'gpts-to-md.py'), folder, '-o', os.path.join(tmp, 'folder.md')],
+    assert '3 GPTs' in r.stdout
+    assert 'skipped: nope.docx (not found)' in r.stdout
+    assert r.stdout.count('skipped:') == 1
+    assert 'Combined from 3 files.' in md2
+    # a folder run stays quiet about the .py sitting in it, and never re-ingests its own prior output
+    open(os.path.join(folder, 'my-gpts.md'), 'w', encoding='utf-8').write('## Old Output\n\nstale')
+    folder_out = os.path.join(tmp, 'folder.md')
+    r = subprocess.run([sys.executable, os.path.join(HERE, 'tools', 'gpts-to-md.py'), folder, '-o', folder_out],
                        check=True, capture_output=True, text=True)
     assert 'gpts-to-md.py' not in r.stdout
+    assert 'my-gpts.md' not in r.stdout
+    assert 'Old Output' not in open(folder_out, encoding='utf-8').read()
     shutil.rmtree(tmp)
 
 if __name__ == '__main__':
