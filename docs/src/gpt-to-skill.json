@@ -33,7 +33,7 @@
   ],
   "have_ready": [
     "<b>For triage:</b> one file, <code>my-gpts.md</code>, with every GPT in it: a <code>## GPT name</code> heading, then its Description, Conversation starters, Knowledge file names, Capabilities, and the whole Instructions box, all copied from each GPT's Configure page. Only have the Instructions box? That's enough for triage.",
-    "<b>Already saved each GPT as its own Word file?</b> Attach them, ten per message, and say <i>Triage my GPTs</i>. The skill builds <code>my-gpts.md</code> and hands it back, then sorts it. No file comes back? Paste them into one Word document, <code>##</code> and the GPT's name above each, and attach that. Either way the Instructions box alone is enough for triage, and put all of them in: triage can only spot duplicates it can see.",
+    "<b>Already saved each GPT as its own Word file?</b> Attach them, ten per message, and say <i>Triage my GPTs</i>. The skill builds <code>my-gpts.md</code> and hands it back, then sorts it. No file comes back? It prints the combined file instead; save it as <code>my-gpts.md</code>, or paste your files into one Word document, <code>##</code> and the GPT's name above each, and attach that. Either way the Instructions box alone is enough for triage, and put all of them in: triage can only spot duplicates it can see.",
     "<b>For convert:</b> the conversion card triage gave you (or that GPT's section of <code>my-gpts.md</code>), plus the GPT's actual Knowledge files &mdash; the originals you uploaded."
   ],
   "connects": [],
