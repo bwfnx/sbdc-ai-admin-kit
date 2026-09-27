@@ -166,10 +166,35 @@ def test_skill_text():
     assert 'never run it on the whole folder' in s and 'Take the first line that fits.' in s
     assert 'Attach only the GPT files, not their Knowledge files.' in s
 
+def test_readme_block():
+    """The README's doors block is generated from the same kit.json object as the site index."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location('build', GEN); mod = importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
+    doors = {'heading': 'Which one is you?', 'buttons': ['Button one', 'Thirty to sort'],
+             'doors': [{'title': 'Door 1: You have the button', 'steps': ['<b>Press</b> <code>Migrate</code>', 'See <a href="https://x.test/T.md">TESTING.md</a>'],
+                        'receipt': {'caption': 'What you get.', 'columns': ['#', 'Rule', 'Where'], 'rows': [['C1', 'never guess one', 'Guardrails']]},
+                        'have': 'plugins', 'policy': 'Advisors stay on the plugin.'},
+                       {'title': 'Door 2: Thirty to sort, or no button', 'steps': ['Attach'], 'have': 'a table'}],
+             'shelf': '<b>The shelf:</b> STANDARD.md'}
+    md = mod.render_doors_md(doors)
+    assert md.startswith('## Which one is you?\n')
+    assert '- [Button one](#door-1-you-have-the-button)' in md and '- [Thirty to sort](#door-2-thirty-to-sort-or-no-button)' in md
+    assert '### Door 1: You have the button\n' in md and '1. **Press** `Migrate`' in md and '2. See [TESTING.md](https://x.test/T.md)' in md
+    assert '| # | Rule | Where |' in md and '| C1 | never guess one | Guardrails |' in md
+    assert "**You'll have:** plugins" in md and 'Advisors stay on the plugin.' in md and '**The shelf:** STANDARD.md' in md
+    tmp = tempfile.mkdtemp(); p = os.path.join(tmp, 'README.md')
+    open(p, 'w', encoding='utf-8', newline='\n').write('# Kit\n\nintro\n\n<!-- doors:start -->\nold\n<!-- doors:end -->\n\n## After\n')
+    mod.update_readme(p, doors)
+    txt = open(p, encoding='utf-8').read()
+    assert 'old' not in txt and '## Which one is you?' in txt and txt.startswith('# Kit\n\nintro\n\n<!-- doors:start -->\n') and txt.endswith('<!-- doors:end -->\n\n## After\n')
+    assert '\r' not in txt
+    shutil.rmtree(tmp)
+
 if __name__ == '__main__':
     test_generator()
     test_converter_own_guide_spec_renders()
     test_copies_in_sync()
     test_gpts_to_md()
     test_skill_text()
+    test_readme_block()
     print('ok')
