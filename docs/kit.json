@@ -7,7 +7,65 @@
   "source_repo": "https://github.com/bwfnx/sbdc-ai-admin-kit",
   "setup_lead": "On ChatGPT, do row 1. Rows 2 to 4 are other ways, if you have them.",
   "cowork_where": "the repository",
-  "files_panel": "<h3 style=\"margin-top:0;\">Start here &mdash; you just got this kit. Do these three things, in order.</h3><ol><li><b>Convert your GPTs.</b> If your ChatGPT workspace has the one-click GPT migration, use it; migrating everything and keeping what people actually use is fine. No button, or moving to Claude? Use the GPT to Skill guide below.</li><li><b>Check every result before advisors touch it.</b> Run it cold in a fresh chat with <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/TESTING.md\" target=\"_blank\" rel=\"noopener\">TESTING.md</a>; that works on anything you can chat with, including what the Migrate button made. <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/STANDARD.md\" target=\"_blank\" rel=\"noopener\">STANDARD.md</a> (ten pass/fail lines) needs the skill's text in front of you. Want a receipt of which rules survived? Run the same GPT through GPT to Skill below; its ledger is that receipt, and the button doesn't give you one. This is the step that matters. <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit/tree/main/examples/transcript-to-action-plan\" target=\"_blank\" rel=\"noopener\">Here's why</a>.</li><li><b>Give staff a one-page guide for each skill</b> &mdash; like the one below. A plain document works; the kit's generator builds pages like this if you want it.</li></ol><p style=\"margin-bottom:0;\">Everything else in the kit is optional. Written for Maryland and points at Neoserra &mdash; check anything that touches your own CRM, programs, or reporting rules before you lean on it. MIT and unsupported &mdash; fork it, change it, don't wait on me.</p>",
   "chatgpt_fallback": "paste the skill text into a ChatGPT Project's instructions.",
-  "netlify_allowlist": false
+  "netlify_allowlist": false,
+  "doors": {
+    "heading": "Which one is you?",
+    "buttons": [
+      "I have the Migrate button",
+      "I have thirty GPTs to sort, or no button"
+    ],
+    "doors": [
+      {
+        "title": "Door 1: You have the button",
+        "steps": [
+          "<b>Press Migrate</b> on the GPTs people use. One click each.",
+          "<b>Test each one cold</b> before advisors touch it: fresh chat, <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/TESTING.md\" target=\"_blank\" rel=\"noopener\">TESTING.md</a>, throw the ugly stuff at it. About ten minutes per GPT.",
+          "<b>Want a receipt</b> of which rules survived? Run the same GPT through <a href=\"https://bwfnx.github.io/sbdc-ai-admin-kit/gpt-to-skill.html\">GPT to Skill</a>; its ledger is the receipt, and the button doesn't give you one. About ten minutes per GPT."
+        ],
+        "receipt": {
+          "caption": "This is what you get for each GPT. The full one is in the <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/examples/transcript-to-action-plan/after/transcript-to-action-plan-client-email-ledger.md\" target=\"_blank\" rel=\"noopener\">worked example</a>.",
+          "columns": [
+            "#",
+            "Rule, quoted from the GPT",
+            "Where it lives now"
+          ],
+          "rows": [
+            [
+              "C1",
+              "\"If the ID code is not present, use 'Client ID' — never guess one.\"",
+              "Guardrails; Workflow step 2; Output format"
+            ],
+            [
+              "C2",
+              "\"match these Neoserra categories exactly, do not paraphrase\"",
+              "Guardrails; Output format › Milestones list"
+            ],
+            [
+              "S1",
+              "Suggested: never paste a client's SSN, date of birth, or account numbers into the drafted email",
+              "Not in the skill until you say yes"
+            ],
+            [
+              "Lost",
+              "\"read the attached SKILL.md in full and follow it exactly\"",
+              "Points at a Knowledge file that wasn't attached; attach it and re-run"
+            ]
+          ]
+        },
+        "have": "the migrated plugins your advisors use, a pass/fail sheet per GPT, and, if you did step 3, a ledger per GPT.",
+        "policy": "Advisors stay on the button's plugin. The converted skill is your receipt and your test sheet."
+      },
+      {
+        "title": "Door 2: Thirty to sort, or no button",
+        "steps": [
+          "<b>Attach your GPT files</b> (Word is fine; one per GPT, named for the GPT), ten per message. The skill builds <code>my-gpts.md</code> and hands it back. No file comes back? Paste them into one Word document, <code>##</code> and the name above each.",
+          "<b>Put the skill where you work:</b> paste <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/skills/gpt-to-skill/SKILL.md\" target=\"_blank\" rel=\"noopener\">skills/gpt-to-skill/SKILL.md</a> into a new ChatGPT Project's instructions, upload its <code>references</code> and <code>scripts</code> folders, then say <i>Triage my GPTs</i>. About five minutes. Details on the <a href=\"https://bwfnx.github.io/sbdc-ai-admin-kit/gpt-to-skill.html\">GPT to Skill</a> page.",
+          "<b>Read the table.</b> Skill and Plugin are keepers; Merge and Retire are your call. Have the button? Press it on the keepers and go to door 1, step 2. No button? Convert one per chat with the cards; each comes back with a receipt."
+        ],
+        "have": "a 30-row table with a verdict per GPT, a card per keeper, and <code>my-gpts.md</code> to keep."
+      }
+    ],
+    "shelf": "<b>The shelf:</b> <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/STANDARD.md\" target=\"_blank\" rel=\"noopener\">STANDARD.md</a> (ten pass/fail lines; needs the skill's text in front of you) &middot; <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/TESTING.md\" target=\"_blank\" rel=\"noopener\">TESTING.md</a> &middot; <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit/tree/main/examples/transcript-to-action-plan\" target=\"_blank\" rel=\"noopener\">the worked example</a> (a real conversion, scored honestly: a narrow FAIL, and the list of what to check by hand) &middot; <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit/tree/main/generator\" target=\"_blank\" rel=\"noopener\">the guide generator</a> (optional) &middot; Written for Maryland and points at Neoserra; check anything that touches your own CRM. MIT and unsupported; fork it."
+  }
 }

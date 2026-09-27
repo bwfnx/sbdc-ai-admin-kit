@@ -198,6 +198,19 @@ def test_readme_block():
     assert open(p, encoding='utf-8').read() == before   # a failed render must not touch the file
     shutil.rmtree(tmp)
 
+def test_kit_json():
+    """The kit's own front door: doors present, files_panel gone, README block in sync with kit.json."""
+    import importlib.util
+    spec = importlib.util.spec_from_file_location('build', GEN); mod = importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
+    kit = json.load(open(os.path.join(HERE, 'docs', 'kit.json'), encoding='utf-8'))
+    assert 'doors' in kit and 'files_panel' not in kit
+    assert [d['title'][:6] for d in kit['doors']['doors']] == ['Door 1', 'Door 2'] and 'receipt' in kit['doors']['doors'][0]
+    readme = open(os.path.join(HERE, 'README.md'), encoding='utf-8').read()
+    block = readme.split(mod.START, 1)[1].split(mod.STOP, 1)[0]
+    assert block == '\n' + mod.render_doors_md(kit['doors']), 'README doors block is stale: py generator/build.py --kit docs/kit.json --src docs/src --out docs --readme README.md'
+    index = open(os.path.join(HERE, 'docs', 'index.html'), encoding='utf-8').read()
+    assert 'Which one is you?' in index and 'id="door-2"' in index
+
 if __name__ == '__main__':
     test_generator()
     test_converter_own_guide_spec_renders()
@@ -205,4 +218,5 @@ if __name__ == '__main__':
     test_gpts_to_md()
     test_skill_text()
     test_readme_block()
+    test_kit_json()
     print('ok')

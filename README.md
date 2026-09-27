@@ -6,15 +6,47 @@ For the person who runs AI at an SBDC — the one who builds the tools, gets the
 
 Custom GPTs are being retired (December 11, 2026 for Enterprise workspaces; Business workspaces are showing the same notice). Converting them is the easy part now. Knowing whether what came out still works is the part that needs a method, and that's what this kit is.
 
-**New here? Open the guide site first: https://bwfnx.github.io/sbdc-ai-admin-kit/** — it says what to do, in order.
+The same screen is on the site: https://bwfnx.github.io/sbdc-ai-admin-kit/
 
-## Start here
+<!-- doors:start -->
+## Which one is you?
 
-1. **Convert.** If your ChatGPT workspace has the one-click migration, use it. Migrating everything and keeping what people actually use is a perfectly good plan.
-2. **Check each result before advisors touch it.** Run it cold in a fresh chat with [TESTING.md](TESTING.md); that works on anything you can chat with, including what the Migrate button made. [STANDARD.md](STANDARD.md) (ten pass/fail lines) needs the skill's text in front of you. Want a receipt of which rules survived? Run the same GPT through [skills/gpt-to-skill](skills/gpt-to-skill/SKILL.md) too; its ledger is that receipt, and the button doesn't give you one. A migration always produces *something*; the question is whether it still asks the right questions, refuses what it should, and gives you your format.
-3. **Give staff a one-page guide** for each skill: what it does, what to have ready, what to say, what comes back, what it won't do. [generator/](generator/) builds pages like [these](https://bwfnx.github.io/sbdc-toolkit/) if you want it; a plain document works too.
+- [I have the Migrate button](#door-1-you-have-the-button)
+- [I have thirty GPTs to sort, or no button](#door-2-thirty-to-sort-or-no-button)
 
-[examples/transcript-to-action-plan](examples/transcript-to-action-plan/) shows why step 2 matters. We converted Maryland's meeting-notes GPT and compared the result with the original skill that GPT was built from. It scored a narrow FAIL, and results varied from run to run on the same input — the scorecard ends with the list of things to check by hand on every conversion, however it was converted.
+### Door 1: You have the button
+
+1. **Press Migrate** on the GPTs people use. One click each.
+2. **Test each one cold** before advisors touch it: fresh chat, [TESTING.md](https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/TESTING.md), throw the ugly stuff at it. About ten minutes per GPT.
+3. **Want a receipt** of which rules survived? Run the same GPT through [GPT to Skill](https://bwfnx.github.io/sbdc-ai-admin-kit/gpt-to-skill.html); its ledger is the receipt, and the button doesn't give you one. About ten minutes per GPT.
+
+This is what you get for each GPT. The full one is in the [worked example](https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/examples/transcript-to-action-plan/after/transcript-to-action-plan-client-email-ledger.md).
+
+| # | Rule, quoted from the GPT | Where it lives now |
+|---|---|---|
+| C1 | "If the ID code is not present, use 'Client ID' — never guess one." | Guardrails; Workflow step 2; Output format |
+| C2 | "match these Neoserra categories exactly, do not paraphrase" | Guardrails; Output format › Milestones list |
+| S1 | Suggested: never paste a client's SSN, date of birth, or account numbers into the drafted email | Not in the skill until you say yes |
+| Lost | "read the attached SKILL.md in full and follow it exactly" | Points at a Knowledge file that wasn't attached; attach it and re-run |
+
+**You'll have:** the migrated plugins your advisors use, a pass/fail sheet per GPT, and, if you did step 3, a ledger per GPT.
+
+Advisors stay on the button's plugin. The converted skill is your receipt and your test sheet.
+
+### Door 2: Thirty to sort, or no button
+
+1. **Attach your GPT files** (Word is fine; one per GPT, named for the GPT), ten per message. The skill builds `my-gpts.md` and hands it back. No file comes back? Paste them into one Word document, `##` and the name above each.
+2. **Put the skill where you work:** paste [skills/gpt-to-skill/SKILL.md](https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/skills/gpt-to-skill/SKILL.md) into a new ChatGPT Project's instructions, upload its `references` and `scripts` folders, then say *Triage my GPTs*. About five minutes. Details on the [GPT to Skill](https://bwfnx.github.io/sbdc-ai-admin-kit/gpt-to-skill.html) page.
+3. **Read the table.** Skill and Plugin are keepers; Merge and Retire are your call. Have the button? Press it on the keepers and go to door 1, step 2. No button? Convert one per chat with the cards; each comes back with a receipt.
+
+**You'll have:** a 30-row table with a verdict per GPT, a card per keeper, and `my-gpts.md` to keep.
+
+**The shelf:** [STANDARD.md](https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/STANDARD.md) (ten pass/fail lines; needs the skill's text in front of you) · [TESTING.md](https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/TESTING.md) · [the worked example](https://github.com/bwfnx/sbdc-ai-admin-kit/tree/main/examples/transcript-to-action-plan) (a real conversion, scored honestly: a narrow FAIL, and the list of what to check by hand) · [the guide generator](https://github.com/bwfnx/sbdc-ai-admin-kit/tree/main/generator) (optional) · Written for Maryland and points at Neoserra; check anything that touches your own CRM. MIT and unsupported; fork it.
+<!-- doors:end -->
+
+Then give staff a one-page guide for each skill: what it does, what to have ready, what to say, what comes back, what it won't do. [generator/](generator/) builds pages like [these](https://bwfnx.github.io/sbdc-toolkit/) if you want it; a plain document works too.
+
+[examples/transcript-to-action-plan](examples/transcript-to-action-plan/) shows why the check matters. We converted Maryland's meeting-notes GPT and compared the result with the original skill that GPT was built from. It scored a narrow FAIL, and results varied from run to run on the same input — the scorecard ends with the list of things to check by hand on every conversion, however it was converted.
 
 ## What's in it
 
