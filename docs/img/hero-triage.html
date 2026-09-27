@@ -1,0 +1,31 @@
+<!doctype html><meta charset="utf-8"><title>hero</title>
+<style>
+body{margin:0;background:#eef0f3;font:16px/1.5 system-ui,Segoe UI,Helvetica,Arial,sans-serif;color:#1c1f24}
+.card{margin:28px;background:#fff;border-radius:14px;padding:26px 30px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.who{font-size:13px;color:#6b7280;margin:0 0 10px;letter-spacing:.02em}
+p{margin:0 0 12px}
+table{border-collapse:collapse;width:100%;margin:6px 0 14px;font-size:15px}
+th,td{border:1px solid #d9dde3;padding:8px 10px;text-align:left;vertical-align:top}
+th{background:#f3f4f6;font-weight:600}
+code{background:#f3f4f6;border-radius:4px;padding:1px 5px;font-size:14px}
+.v{font-weight:600}
+pre{background:#f8f9fb;border:1px solid #e3e6ea;border-radius:8px;padding:12px 14px;font-size:14px;line-height:1.45;margin:0}
+.note{color:#4b5563;font-size:15px}
+</style>
+<div class="card">
+<p class="who">gpt-to-skill · Collect, then Triage · four GPT files attached</p>
+<p>Wrote <code>my-gpts.md</code> from your four files. Keep it; the conversion cards attach its sections. Here is the table.</p>
+<table>
+<tr><th>#</th><th>GPT</th><th>Purpose (one line)</th><th>Verdict</th><th>Flags</th><th>Order</th></tr>
+<tr><td>1</td><td>Loan Packaging Coach</td><td>Coaches a client through SBA loan-packaging documents and calculates DSCR.</td><td class="v">Plugin</td><td><code>client-data</code>, <code>math</code></td><td>3</td></tr>
+<tr><td>2</td><td>Meeting Notes Cleaner</td><td>Turns pasted meeting notes into a fixed client-note format.</td><td class="v">Skill</td><td><code>client-data</code></td><td>2</td></tr>
+<tr><td>3</td><td>Startup Cost Estimator</td><td>Estimates a new business's one-time and monthly startup costs for Nebraska.</td><td class="v">Plugin</td><td><code>math</code>, <code>no-refusals</code></td><td>4</td></tr>
+<tr><td>4</td><td>Email Polisher</td><td>Polishes a client's plain-English business email.</td><td class="v">Skill</td><td>(none)</td><td>1</td></tr>
+</table>
+<p class="note">Flags mark what to check before advisors use it, not what to drop. Plugin is packaging advice, not a blocker: the Migrate button works on it like any other. <code>client-data</code> rows: replace names, IDs, and figures in the file with placeholders before converting, or Convert stops on them.</p>
+<p>Which of these do people use every day?</p>
+<pre>Convert this GPT to a skill: Email Polisher
+Triage verdict: Skill — one focused, repeatable job the instructions carry on their own
+Flags: none
+Attach: the "Email Polisher" section of my-gpts.md, and Knowledge files: unknown: the file holds only the Instructions</pre>
+</div>

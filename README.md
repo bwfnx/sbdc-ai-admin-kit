@@ -1,4 +1,19 @@
-# SBDC AI Admin Kit
+# Know which of your custom GPTs still work before an advisor finds out they don't.
+
+![What the GPT to Skill helper hands back: a triage table with a verdict, flags, and an order for each GPT, then a conversion card](docs/img/hero-triage.png)
+
+## Get it running
+
+1. Download the kit: green **Code** button, **Download ZIP**. Or:
+
+   ```
+   git clone https://github.com/bwfnx/sbdc-ai-admin-kit
+   ```
+
+2. In ChatGPT, on any plan: new Project, paste [skills/gpt-to-skill/SKILL.md](skills/gpt-to-skill/SKILL.md) into its instructions, upload the `references` and `scripts` folders from the zip.
+3. Attach your GPT files, ten per message, and say **Triage my GPTs**. Only have the Migrate button and want the test method? Skip to [TESTING.md](TESTING.md).
+
+## SBDC AI Admin Kit
 
 For the person who runs AI at an SBDC — the one who builds the tools, gets them in front of advisors, and answers for them when they break. Advisors never see this kit; they see the finished skills and a one-page guide for each.
 
