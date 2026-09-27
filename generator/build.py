@@ -96,18 +96,36 @@ def render(spec, tpl, kit):
                            'TYPE': TYPE_LABEL[t], 'UPDATED': e(spec.get('updated', datetime.date.today().isoformat())), 'VERSION': e(spec.get('version', '')),
                            'DESCRIPTION': e(spec.get('tagline', '')), 'TOC': toc, 'SECTIONS': ''.join(parts), 'SOURCE': e(spec.get('source', ''))})
 
+def render_doors(d):
+    """The front door: one question, two buttons, two three-step doors, a shelf. HTML allowed in steps, have, policy, shelf, caption."""
+    body = '<p>' + ' '.join('<a class="chip" href="#door-%d">%s</a>' % (i + 1, e(b)) for i, b in enumerate(d['buttons'])) + '</p>'
+    for i, door in enumerate(d['doors']):
+        body += '<section id="door-%d" class="panel"><h3 style="margin-top:0;">%s</h3><ol class="steps">%s</ol>' % (
+            i + 1, e(door['title']), ''.join('<li>' + s + '</li>' for s in door['steps']))
+        r = door.get('receipt')
+        if r:
+            body += '<p>' + r['caption'] + '</p><div class="tablescroll"><table class="tt" style="min-width:0;"><thead><tr>' + ''.join('<th>' + e(c) + '</th>' for c in r['columns']) + '</tr></thead><tbody>'
+            body += ''.join('<tr>' + ''.join('<td>' + e(c) + '</td>' for c in row) + '</tr>' for row in r['rows']) + '</tbody></table></div>'
+        body += '<p><b>You&rsquo;ll have:</b> ' + door['have'] + '</p>'
+        if door.get('policy'): body += '<p>' + door['policy'] + '</p>'
+        body += '</section>'
+    body += '<p class="sub" style="margin-top:var(--s4);">' + d['shelf'] + '</p>'
+    return body
+
 def render_index(specs, tpl, kit):
     groups = {}
     for s in specs: groups.setdefault(s.get('plugin', {}).get('label', 'Other'), []).append(s)
     center = e(kit['center'])
-    body = '<p>Every skill in the %s toolkit, one page each: what it does, what to have ready, what to say, what comes back. Open the guide before you open the skill.</p>' % center
-    body += '<div class="panel" style="margin-top:var(--s4);">' + kit['files_panel'] + '</div>'
+    doors = kit.get('doors')
+    body = render_doors(doors) if doors else ''
+    body += '<p%s>Every skill in the %s toolkit, one page each: what it does, what to have ready, what to say, what comes back. Open the guide before you open the skill.</p>' % (' style="margin-top:var(--s6);"' if doors else '', center)
+    if not doors: body += '<div class="panel" style="margin-top:var(--s4);">' + kit['files_panel'] + '</div>'
     for g, items in groups.items():
         body += '<h3 style="margin-top:var(--s6);">' + e(g) + '</h3><div class="dgrid">'
         for s in sorted(items, key=lambda x: x['title']):
             body += '<a class="dcard" href="%s.html" style="display:block;color:inherit;font-weight:400;"><div class="org">%s <span class="warm warm-known">%s</span></div><div class="tagline">%s</div></a>' % (e(s['slug']), e(s['title']), TYPE_LABEL[s.get('type', 'conversation')], e(s.get('tagline', '')))
         body += '</div>'
-    sec = section('index', 'The rundown', 'Every skill, and how to actually use it', body)
+    sec = section('index', 'Start here', e(doors['heading']), body) if doors else section('index', 'The rundown', 'Every skill, and how to actually use it', body)
     return fill(tpl, kit, {'DOCTITLE': 'Skill guides — ' + center, 'TITLE': 'Skill guides', 'TAGLINE': 'How to use every skill in the %s toolkit' % center,
                            'PLUGIN': kit['badge'], 'TYPE': '%d guide%s' % (len(specs), '' if len(specs) == 1 else 's'), 'UPDATED': datetime.date.today().isoformat(), 'VERSION': '',
                            'DESCRIPTION': 'Index of skill guides', 'TOC': '', 'SECTIONS': sec, 'SOURCE': ''})

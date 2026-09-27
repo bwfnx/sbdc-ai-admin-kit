@@ -55,6 +55,24 @@ def test_generator():
     assert kit['files_step'] not in page and 'Pick your row' not in page
     shutil.rmtree(tmp)
 
+    # a kit with doors renders them on the index (and drops files_panel); without doors the panel still renders
+    doors = {'heading': 'Which one is you?', 'buttons': ['Button one', 'Thirty to sort'],
+             'doors': [{'title': 'Door 1: You have the button', 'steps': ['<b>Press</b> it', 'Test it', 'Get a receipt'],
+                        'receipt': {'caption': 'This is what you get.', 'columns': ['#', 'Rule', 'Where'], 'rows': [['C1', 'never guess one', 'Guardrails']]},
+                        'have': 'plugins', 'policy': 'Advisors stay on the plugin.'},
+                       {'title': 'Door 2: Thirty to sort', 'steps': ['Attach', 'Paste', 'Read'], 'have': 'a table'}],
+             'shelf': 'STANDARD.md and TESTING.md'}
+    tmp, out = build(dict(kit, doors=doors), [spec])
+    index = read(out, 'index.html')
+    for needle in ('Which one is you?', 'href="#door-1"', 'id="door-2"', 'Door 1: You have the button', '<b>Press</b> it',
+                   'never guess one', 'Advisors stay on the plugin.', 'STANDARD.md and TESTING.md'):
+        assert needle in index, needle
+    assert kit['files_panel'] not in index
+    shutil.rmtree(tmp)
+    tmp, out = build(kit, [spec])
+    assert kit['files_panel'] in read(out, 'index.html')
+    shutil.rmtree(tmp)
+
 def test_converter_own_guide_spec_renders():
     """The converter's own worked-example guide spec must render, not just parse (Important 2)."""
     spec_path = os.path.join(HERE, 'examples', 'transcript-to-action-plan', 'after',
