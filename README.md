@@ -35,13 +35,13 @@ Advisors stay on the button's plugin. The converted skill is your receipt and yo
 
 ### Door 2: Thirty to sort, or no button
 
-1. **Attach your GPT files** (Word is fine; one per GPT, named for the GPT), ten per message. The skill builds `my-gpts.md` and hands it back. No file comes back? Paste them into one Word document, `##` and the name above each.
-2. **Put the skill where you work:** paste [skills/gpt-to-skill/SKILL.md](https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/skills/gpt-to-skill/SKILL.md) into a new ChatGPT Project's instructions, upload its `references` and `scripts` folders, then say *Triage my GPTs*. About five minutes. Details on the [GPT to Skill](https://bwfnx.github.io/sbdc-ai-admin-kit/gpt-to-skill.html) page.
-3. **Read the table.** Skill and Plugin are keepers; Merge and Retire are your call. Have the button? Press it on the keepers and go to door 1, step 2. No button? Convert one per chat with the cards; each comes back with a receipt.
+1. **Put the skill where you work:** paste [skills/gpt-to-skill/SKILL.md](https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/skills/gpt-to-skill/SKILL.md) into a new ChatGPT Project's instructions and upload its `references` and `scripts` folders. About five minutes. Details on the [GPT to Skill](https://bwfnx.github.io/sbdc-ai-admin-kit/gpt-to-skill.html) page.
+2. **Attach your GPT files** (Word is fine; one per GPT, named for the GPT), ten per message, and say *Triage my GPTs*. The skill builds `my-gpts.md` and hands it back, then sorts it. No file comes back? Paste them into one Word document, `##` and the name above each, and attach that.
+3. **Read the table.** Skill and Plugin are keepers; Agent means it needs more than a skill, park it; Merge and Retire are your call. Have the button? Press it on the keepers and go to door 1, step 2. No button? Convert one per chat with the cards; each comes back with a receipt.
 
 **You'll have:** a 30-row table with a verdict per GPT, a card per keeper, and `my-gpts.md` to keep.
 
-**The shelf:** [STANDARD.md](https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/STANDARD.md) (ten pass/fail lines; needs the skill's text in front of you) · [TESTING.md](https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/TESTING.md) · [the worked example](https://github.com/bwfnx/sbdc-ai-admin-kit/tree/main/examples/transcript-to-action-plan) (a real conversion, scored honestly: a narrow FAIL, and the list of what to check by hand) · [the guide generator](https://github.com/bwfnx/sbdc-ai-admin-kit/tree/main/generator) (optional) · Written for Maryland and points at Neoserra; check anything that touches your own CRM. MIT and unsupported; fork it.
+**The shelf:** [STANDARD.md](https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/STANDARD.md) (ten pass/fail lines; needs the skill's text in front of you) · [TESTING.md](https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/TESTING.md) · [the worked example](https://github.com/bwfnx/sbdc-ai-admin-kit/tree/main/examples/transcript-to-action-plan) (a real conversion, scored honestly: a narrow FAIL, and the list of what to check by hand) · [the guide generator](https://github.com/bwfnx/sbdc-ai-admin-kit/tree/main/generator) (optional) · Written for Maryland and points at Neoserra; check anything that touches your own CRM, programs, or reporting rules before you lean on it. MIT and unsupported; fork it, change it, don't wait on me.
 <!-- doors:end -->
 
 Then give staff a one-page guide for each skill: what it does, what to have ready, what to say, what comes back, what it won't do. [generator/](generator/) builds pages like [these](https://bwfnx.github.io/sbdc-toolkit/) if you want it; a plain document works too.
@@ -56,7 +56,7 @@ Then give staff a one-page guide for each skill: what it does, what to have read
 | [TESTING.md](TESTING.md) | How to find out whether a skill still works: run it cold and throw the ugly stuff at it. |
 | [examples/](examples/) | A real conversion scored honestly against the skill it came from, a triage run, and the converter's own test results. |
 | [generator/](generator/) | Optional. Turns a guide spec into a staff page. Edit `kit.json` for your center's name, links, and contact. |
-| [skills/gpt-to-skill](skills/gpt-to-skill/SKILL.md) | Optional. For when you have no migration button (Claude, older workspaces), or want a second opinion: triage all your GPTs at once, then convert one per chat, with a guardrail ledger showing what was kept, dropped, or needs your approval. |
+| [skills/gpt-to-skill](skills/gpt-to-skill/SKILL.md) | Optional. For the receipt, for sorting thirty GPTs before you migrate any, or when you have no button: attach your GPT files, triage them all at once, then convert one per chat, with a guardrail ledger showing what was kept, dropped, or needs your approval. |
 
 ## Using the optional pieces
 
