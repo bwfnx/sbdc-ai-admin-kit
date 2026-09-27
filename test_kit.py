@@ -68,10 +68,12 @@ def test_converter_own_guide_spec_renders():
 def test_copies_in_sync():
     """The converter must be self-contained when zipped, so it carries copies. They may not drift."""
     ref = os.path.join(HERE, 'skills', 'gpt-to-skill', 'references')
-    for top, copy in (('STANDARD.md', 'standard.md'), ('TESTING.md', 'testing.md')):
+    for top, copy in (('STANDARD.md', os.path.join('references', 'standard.md')),
+                      ('TESTING.md', os.path.join('references', 'testing.md')),
+                      (os.path.join('tools', 'gpts-to-md.py'), os.path.join('scripts', 'gpts-to-md.py'))):
         a = open(os.path.join(HERE, top), 'rb').read()
-        b = open(os.path.join(ref, copy), 'rb').read()
-        assert a == b, '%s and references/%s differ - copy the top-level file over' % (top, copy)
+        b = open(os.path.join(HERE, 'skills', 'gpt-to-skill', copy), 'rb').read()
+        assert a == b, '%s and skills/gpt-to-skill/%s differ - copy the top-level file over' % (top, copy)
     tmpl = json.load(open(os.path.join(ref, 'guide-spec-template.json'), encoding='utf-8'))
     for key in ('slug', 'title', 'tagline', 'type', 'source', 'summary', 'never', 'have_ready', 'setup', 'use', 'faq'):
         assert key in tmpl, 'guide-spec-template.json missing ' + key
@@ -97,6 +99,24 @@ def test_gpts_to_md():
     assert md.index('## Loan Check') < md.index('## Marketing Helper')      # sorted by name
     assert '~$' not in md and 'Old One' not in md
     assert 'Old One.doc' in r.stdout and '2 GPTs' in r.stdout
+    # explicit file list: only the named files are combined, a SKILL.md and a .py in the same folder are left alone,
+    # and a duplicate stem gets " (2)"
+    open(os.path.join(folder, 'SKILL.md'), 'w', encoding='utf-8').write('# not a GPT')
+    open(os.path.join(folder, 'gpts-to-md.py'), 'w', encoding='utf-8').write('print(1)')
+    dup = os.path.join(tmp, 'elsewhere'); os.makedirs(dup)
+    open(os.path.join(dup, 'Loan Check.txt'), 'w', encoding='utf-8').write('Second copy.')
+    out2 = os.path.join(tmp, 'listed.md')
+    r = subprocess.run([sys.executable, os.path.join(HERE, 'tools', 'gpts-to-md.py'),
+                        os.path.join(folder, 'Loan Check.txt'), os.path.join(folder, 'Marketing Helper.docx'),
+                        os.path.join(dup, 'Loan Check.txt'), '-o', out2], check=True, capture_output=True, text=True)
+    md2 = open(out2, encoding='utf-8').read()
+    assert '## Loan Check\n' in md2 and '## Marketing Helper\n' in md2 and '## Loan Check (2)\n' in md2
+    assert 'not a GPT' not in md2 and 'print(1)' not in md2
+    assert '3 GPTs' in r.stdout and 'skipped' not in r.stdout
+    # a folder run stays quiet about the .py sitting in it
+    r = subprocess.run([sys.executable, os.path.join(HERE, 'tools', 'gpts-to-md.py'), folder, '-o', os.path.join(tmp, 'folder.md')],
+                       check=True, capture_output=True, text=True)
+    assert 'gpts-to-md.py' not in r.stdout
     shutil.rmtree(tmp)
 
 if __name__ == '__main__':
