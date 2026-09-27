@@ -188,6 +188,14 @@ def test_readme_block():
     txt = open(p, encoding='utf-8').read()
     assert 'old' not in txt and '## Which one is you?' in txt and txt.startswith('# Kit\n\nintro\n\n<!-- doors:start -->\n') and txt.endswith('<!-- doors:end -->\n\n## After\n')
     assert '\r' not in txt
+    assert '|---|---|---|' in md and md.endswith('**The shelf:** STANDARD.md\n')   # separator row; end marker gets its own line
+    bad = dict(doors, doors=[dict(doors['doors'][0], receipt={'caption': 'x', 'columns': ['#'], 'rows': [[1]]})] + doors['doors'][1:])
+    before = open(p, encoding='utf-8').read()
+    try:
+        mod.update_readme(p, bad); assert False, 'expected a failure on a non-string cell'
+    except AttributeError:
+        pass
+    assert open(p, encoding='utf-8').read() == before   # a failed render must not touch the file
     shutil.rmtree(tmp)
 
 if __name__ == '__main__':

@@ -129,7 +129,7 @@ def render_doors_md(d):
         out += ['### ' + door['title'], ''] + ['%d. %s' % (i + 1, md(s)) for i, s in enumerate(door['steps'])] + ['']
         r = door.get('receipt')
         if r:
-            out += [md(r['caption']), '', '| ' + ' | '.join(r['columns']) + ' |', '|' + '---|' * len(r['columns'])]
+            out += [md(r['caption']), '', '| ' + ' | '.join(c.replace('|', '\\|') for c in r['columns']) + ' |', '|' + '---|' * len(r['columns'])]
             out += ['| ' + ' | '.join(c.replace('|', '\\|') for c in row) + ' |' for row in r['rows']] + ['']
         out += ["**You'll have:** " + md(door['have']), '']
         if door.get('policy'): out += [md(door['policy']), '']
@@ -142,7 +142,8 @@ def update_readme(path, d):
     txt = open(path, encoding='utf-8').read()
     if START not in txt or STOP not in txt: sys.exit('%s: add the lines %s and %s where the doors go' % (path, START, STOP))
     head, rest = txt.split(START, 1); _, tail = rest.split(STOP, 1)
-    with open(path, 'w', encoding='utf-8', newline='\n') as fh: fh.write(head + START + '\n' + render_doors_md(d) + STOP + tail)
+    new = head + START + '\n' + render_doors_md(d) + STOP + tail   # render first: a bad doors object must not leave an empty README
+    with open(path, 'w', encoding='utf-8', newline='\n') as fh: fh.write(new)
 
 def render_index(specs, tpl, kit):
     groups = {}
