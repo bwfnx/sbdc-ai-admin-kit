@@ -1,6 +1,6 @@
 ---
 name: gpt-to-skill
-description: Turn custom GPTs into skills. COLLECT mode takes the GPT files themselves, attached (Word, text, or Markdown, one per GPT), builds my-gpts.md, and hands it back. TRIAGE mode takes every GPT's instructions at once (one my-gpts.md file, a "## GPT Name" heading over each) and sorts each into Skill, Plugin, Agent, Merge, or Retire, flags the risky ones, and writes a conversion card for each. CONVERT mode takes one GPT per chat (its Instructions, Description, Conversation starters, and Knowledge files) and returns a SKILL.md, a guardrail ledger, a staff-guide spec, and a cold-test checklist. Use when someone says "triage my GPTs", "convert this GPT to a skill", "migrate my GPTs", "turn these GPT instructions into a SKILL.md", or pastes a conversion card.
+description: Turn custom GPTs into skills. COLLECT mode takes the GPT files themselves, attached (Word, text, or Markdown, one per GPT), builds my-gpts.md, hands it back, and sorts it. TRIAGE mode takes every GPT's instructions at once (one my-gpts.md file, a "## GPT Name" heading over each) and sorts each into Skill, Plugin, Agent, Merge, or Retire, flags the risky ones, and writes a conversion card for each. CONVERT mode takes one GPT per chat (its Instructions, Description, Conversation starters, and Knowledge files) and returns a SKILL.md, a guardrail ledger, a staff-guide spec, and a cold-test checklist. Use when someone says "triage my GPTs", "convert this GPT to a skill", "migrate my GPTs", "turn these GPT instructions into a SKILL.md", or pastes a conversion card.
 ---
 
 # GPT to Skill
@@ -41,7 +41,7 @@ Markdown or plain text is best. Word files work but add nothing. Already saved e
 
 Open every first reply with "Here's what happens." and the one line for the mode you are in, then the two shared sentences, before any question or table:
 
-- **Collect** (several GPT files attached): "I'll combine these into one `my-gpts.md`, hand it back, then sort it. Ten files per message; say 'more coming' between batches and 'that's all' when done."
+- **Collect** (several GPT files attached): "I'll combine these into one `my-gpts.md`, hand it back, then sort it. Ten files per message; say 'more coming' between batches and 'that's all' when done. Attach only the GPT files, not their Knowledge files."
 - **Triage** (several GPTs in one file): "One table saying what each should become and in what order, one question, then a conversion card per keeper. Two replies."
 - **Convert** (one GPT): "I rebuild it as a skill and hand back the skill file, a ledger of what I kept, dropped, or suggest adding, a staff-guide spec, and a test list. A question first if something's missing."
 
@@ -51,10 +51,12 @@ Then the mode's own opening.
 
 ## Which mode
 
+Take the first line that fits.
+
 - No GPT in the input, or the input isn't GPT instructions (a flyer, a transcript, a spreadsheet) → say what you received and ask: "Paste or attach your GPT the way 'What to have ready' shows — one `## <GPT name>` block per GPT, or the GPT files themselves." Don't triage or convert anything else.
-- A conversion card, or a request to convert one named GPT → **Convert**, using only that GPT's section even if the file holds others. Attached files are then Knowledge files, not GPTs.
+- A conversion card, or a request to convert one named GPT → **Convert**, using only that GPT's section even if the file holds others. Attached files are then Knowledge files, except the one that holds the GPT's Instructions (`my-gpts.md` or the one GPT file).
 - Several attached GPT files (.docx, .txt, .md), no `my-gpts` file, and no card → **Collect**, then Triage.
-- One attached file that is not `my-gpts`, no card, and no request to convert → ask: "Do you want me to convert this one GPT, or is there more to sort?"
+- One attached file that is not `my-gpts`, no card, no request to convert, and no "more coming" or "that's all" → ask: "Do you want me to convert this one GPT, or is there more to sort?"
 - More than one GPT and no card → **Triage**.
 - Can't tell → ask: "Do you want me to triage several GPTs, or convert one?"
 

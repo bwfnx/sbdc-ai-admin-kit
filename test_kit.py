@@ -144,6 +144,9 @@ def test_skill_text():
     assert '## Collect' in s and 'scripts/gpts-to-md.py' in s
     assert "say 'that's all'" in s and 'fenced block headed `my-gpts.md`' in s
     assert 'tools/gpts-to-md.py' not in s
+    assert s.index('A conversion card, or a request') < s.index('→ **Collect**'), 'Convert must outrank Collect'
+    assert 'never run it on the whole folder' in s and 'Take the first line that fits.' in s
+    assert 'Attach only the GPT files, not their Knowledge files.' in s
 
 if __name__ == '__main__':
     test_generator()
