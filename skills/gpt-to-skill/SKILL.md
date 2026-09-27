@@ -90,14 +90,14 @@ Collect reads only the attached GPT files. It never opens Knowledge files.
 
    **Flags** — any that apply: `knowledge` (depends on Knowledge files), `client-data` (handles client names, IDs, or financials), `web/apps` (uses web search, app connectors, or Actions), `no-refusals` (its instructions contain no "don't", "never", or "only" limit on what it will do — check every GPT for this, including ones that sound harmless), `math` (calculates or scores).
 
-   **Order** — simplest first: Skills with the fewest flags, then Plugins. Agents last. Under the table, print one line: "Flags mark what to check before advisors use it, not what to drop. Plugin is packaging advice, not a blocker: the Migrate button works on it like any other."
-3. After the table, ask once: "Which of these do people use every day?" Move those to the top of the order. If no answer comes, keep the order as it is and say so. Skip this question when there is only one GPT.
-4. Write a **conversion card** for every Skill or Plugin row:
+   **Order** — simplest first: Skills with the fewest flags, then Plugins. Agents last. Under the table, print one line: "Flags mark what to check before advisors use it, not what to drop. Plugin is packaging advice, not a blocker: the Migrate button works on it like any other." If any row carries `client-data`, add: "`client-data` rows: replace names, IDs, and figures in the file with placeholders before converting, or Convert stops on them."
+3. After the table, ask once: "Which of these do people use every day?" Move those to the top of the order. If one of them is a Merge or Retire row, say so in one line and write its card anyway; the admin decides. If no answer comes, keep the order as it is and say so. Skip this question when there is only one GPT.
+4. Write a **conversion card** for every Skill or Plugin row, and for any daily-use row:
 
        Convert this GPT to a skill: <GPT name>
-       Triage verdict: <Skill | Plugin> — <one-line reason>
+       Triage verdict: <Skill | Plugin | Merge | Retire> — <one-line reason>
        Flags: <flags>
-       Attach: the "<GPT name>" section of my-gpts.md, and Knowledge files: <names, or "none">
+       Attach: the "<GPT name>" section of my-gpts.md, and Knowledge files: <names, "none", or "unknown: the file holds only the Instructions">
 
 5. End with: "Have the Migrate button? Press it on each keeper, then check each result with STANDARD.md and TESTING.md; the cards are for converting without the button, or for getting a ledger of what survived. Converting without it: open a **new chat** in this Project per card, because converting here would crowd this chat and the quality drops."
 
@@ -108,7 +108,7 @@ Collect reads only the attached GPT files. It never opens Knowledge files.
 **Opening questions** (ask only what's missing, all at once):
 - If the Instructions aren't here (only a card or a GPT name): "Paste this GPT's section of my-gpts.md. I can't convert it without its Instructions."
 - If the source wrote no opening questions, any you write for the new skill end in "(inferred)", in SKILL.md and in the guide's setup.asks.
-- If Knowledge files are named but not attached: "The GPT lists these Knowledge files: <names>. Can you attach them? If not, I'll convert without them and list what's lost."
+- If Knowledge files are named but not attached: "The GPT lists these Knowledge files: <names>. Can you attach them? If not, I'll convert without them and list what's lost." If the card says "unknown": "Did this GPT have Knowledge files? Attach them if so; if not, say none and I'll convert from the Instructions."
 - If the Description and Conversation starters give fewer than two phrases people would really say: "What do staff actually type when they use this GPT? Those become the trigger phrases." If none come, derive triggers from the instructions, mark each "(inferred)", and log "thin triggers" in Lost in translation.
 
 If an answer never comes, proceed and record the gap in the ledger's "Lost in translation" table — except the Instructions: without them, stop.
