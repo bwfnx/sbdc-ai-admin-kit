@@ -185,6 +185,7 @@ def test_skill_text():
     assert 'write its card anyway; the admin decides' in s and '<Skill | Plugin | Merge | Retire>' in s   # a daily-use Merge/Retire row still gets a card
     assert 'or "unknown: the file holds only the Instructions"' in s and 'If the card says "unknown"' in s
     assert 'or Convert stops on them.' in s
+    assert '"do not", "never", or "only"' in s   # two cold plays read the flag as literal strings
 
 def test_readme_block():
     """The README's doors block is generated from the same kit.json object as the site index."""

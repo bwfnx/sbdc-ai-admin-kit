@@ -88,7 +88,7 @@ Collect reads only the attached GPT files. It never opens Knowledge files.
 
    Merge and Retire are recommendations. The admin decides.
 
-   **Flags** — any that apply: `knowledge` (depends on Knowledge files), `client-data` (handles client names, IDs, or financials), `web/apps` (uses web search, app connectors, or Actions), `no-refusals` (its instructions contain no "don't", "never", or "only" limit on what it will do — check every GPT for this, including ones that sound harmless), `math` (calculates or scores).
+   **Flags** — any that apply: `knowledge` (depends on Knowledge files), `client-data` (handles client names, IDs, or financials), `web/apps` (uses web search, app connectors, or Actions), `no-refusals` (its instructions contain no "don't", "do not", "never", or "only" limit on what it will do — check every GPT for this, including ones that sound harmless), `math` (calculates or scores).
 
    **Order** — simplest first: Skills with the fewest flags, then Plugins. Agents last. Under the table, print one line: "Flags mark what to check before advisors use it, not what to drop. Plugin is packaging advice, not a blocker: the Migrate button works on it like any other." If any row carries `client-data`, add: "`client-data` rows: replace names, IDs, and figures in the file with placeholders before converting, or Convert stops on them."
 3. After the table, ask once: "Which of these do people use every day?" Move those to the top of the order. If one of them is a Merge or Retire row, say so in one line and write its card anyway; the admin decides. If no answer comes, keep the order as it is and say so. Skip this question when there is only one GPT.
