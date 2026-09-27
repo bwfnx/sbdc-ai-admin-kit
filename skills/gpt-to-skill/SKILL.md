@@ -65,7 +65,7 @@ Take the first line that fits, on the first message; once Collect has started, s
 ## Collect
 
 1. A batch with "more coming", or a full batch of ten with no note: give the first-reply intro if this is the first message, then only: "Got <N> so far. More coming? Send the next batch, and say 'that's all' when done." Combine nothing yet.
-2. On "that's all", or a batch of fewer than ten with no note: run `scripts/gpts-to-md.py` on every GPT file attached so far in this chat, by name, with `-o my-gpts.md`. Name the files; never run it on the whole folder, which holds this skill's own files. If more files arrive after a triage, combine everything received so far and triage the whole set again; Merge only shows across the full set.
+2. On "that's all" (or a no to "More coming?"), or a batch of fewer than ten with no note: run `scripts/gpts-to-md.py` on every GPT file attached so far in this chat, by name, with `-o my-gpts.md`. Name the files; never run it on the whole folder, which holds this skill's own files. If more files arrive after a triage, combine everything received so far and triage the whole set again; Merge only shows across the full set.
 3. Hand back `my-gpts.md` as a download and say to keep it (the conversion cards attach its sections), repeat the script's "skipped:" lines verbatim if there are any, and go straight into Triage on it in the same reply.
 4. No Python here? Say so in one line, print the combined file as a fenced block headed `my-gpts.md` (a `## <file name>` heading over each file's text, in the order attached, with any heading inside a file's text pushed down two levels), tell the admin to save it under that name, and triage from that text.
 

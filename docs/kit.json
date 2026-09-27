@@ -21,7 +21,7 @@
         "steps": [
           "<b>Press Migrate</b> on the GPTs people use; try a spare one first to see what comes out. One click each.",
           "<b>Test each one cold</b> before advisors touch it: fresh chat, <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/TESTING.md\" target=\"_blank\" rel=\"noopener\">TESTING.md</a>, throw the ugly stuff at it. About ten minutes per GPT.",
-          "<b>Want a receipt</b> of which rules survived? Run the same GPT through <a href=\"https://bwfnx.github.io/sbdc-ai-admin-kit/gpt-to-skill.html\">GPT to Skill</a>; its ledger is a receipt for the kit's own conversion and a checklist of the rules to test for in the button's plugin; the button doesn't give you one. About ten minutes per GPT, plus five to set up the first time."
+          "<b>Want a receipt</b> of which rules survived? Run the same GPT through <a href=\"https://bwfnx.github.io/sbdc-ai-admin-kit/gpt-to-skill.html\">GPT to Skill</a>; its ledger is a receipt for the kit's own conversion and a checklist of the rules to test for in the button's plugin; the button doesn't give you one. About ten minutes per GPT, plus fifteen to set up the first time."
         ],
         "receipt": {
           "caption": "This is what you get for each GPT. The full one is in the <a href=\"https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/examples/transcript-to-action-plan/after/transcript-to-action-plan-client-email-ledger.md\" target=\"_blank\" rel=\"noopener\">worked example</a>.",

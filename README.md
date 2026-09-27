@@ -18,7 +18,7 @@ The same screen is on the site: https://bwfnx.github.io/sbdc-ai-admin-kit/
 
 1. **Press Migrate** on the GPTs people use; try a spare one first to see what comes out. One click each.
 2. **Test each one cold** before advisors touch it: fresh chat, [TESTING.md](https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/TESTING.md), throw the ugly stuff at it. About ten minutes per GPT.
-3. **Want a receipt** of which rules survived? Run the same GPT through [GPT to Skill](https://bwfnx.github.io/sbdc-ai-admin-kit/gpt-to-skill.html); its ledger is a receipt for the kit's own conversion and a checklist of the rules to test for in the button's plugin; the button doesn't give you one. About ten minutes per GPT, plus five to set up the first time.
+3. **Want a receipt** of which rules survived? Run the same GPT through [GPT to Skill](https://bwfnx.github.io/sbdc-ai-admin-kit/gpt-to-skill.html); its ledger is a receipt for the kit's own conversion and a checklist of the rules to test for in the button's plugin; the button doesn't give you one. About ten minutes per GPT, plus fifteen to set up the first time.
 
 This is what you get for each GPT. The full one is in the [worked example](https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/examples/transcript-to-action-plan/after/transcript-to-action-plan-client-email-ledger.md).
 
