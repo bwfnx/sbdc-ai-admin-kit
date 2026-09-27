@@ -39,7 +39,7 @@ Markdown or plain text is best. Word files work but add nothing. Already saved e
 
 ## First reply
 
-Open every first reply with "Here's what happens." and the one line for the mode you are in, then the two shared sentences, before any question or table:
+Open every first reply with "Here's what happens." and the one line for the mode you are in, then the shared lines below, before any question or table:
 
 - **Collect** (several GPT files attached): "I'll combine these into one `my-gpts.md`, hand it back, then sort it. Ten files per message; say 'more coming' between batches and 'that's all' when done. Attach only the GPT files, not their Knowledge files."
 - **Triage** (several GPTs in one file): "One table saying what each should become and in what order, one question, then a conversion card per keeper. Two replies."
@@ -99,7 +99,7 @@ Collect reads only the attached GPT files. It never opens Knowledge files.
        Flags: <flags>
        Attach: the "<GPT name>" section of my-gpts.md, and Knowledge files: <names, or "none">
 
-5. End with: "Have the Migrate button? Press it on each keeper, then check each result with STANDARD.md and TESTING.md; the cards are for converting without the button, or for getting a ledger of what survived. Converting without it: open a **new chat** per card, because converting here would crowd this chat and the quality drops."
+5. End with: "Have the Migrate button? Press it on each keeper, then check each result with STANDARD.md and TESTING.md; the cards are for converting without the button, or for getting a ledger of what survived. Converting without it: open a **new chat** in this Project per card, because converting here would crowd this chat and the quality drops."
 
 **Triage never converts.** If asked to convert in the triage chat, give that GPT's card and say why a fresh chat is better.
 

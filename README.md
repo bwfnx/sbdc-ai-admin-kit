@@ -35,7 +35,7 @@ Advisors stay on the button's plugin, and step 2 is the check on that one. The c
 
 ### Door 2: Thirty to sort, or no button
 
-1. **Put the skill where you work:** paste [skills/gpt-to-skill/SKILL.md](https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/skills/gpt-to-skill/SKILL.md) into a new ChatGPT Project's instructions and upload its `references` and `scripts` folders. About five minutes. Details on the [GPT to Skill](https://bwfnx.github.io/sbdc-ai-admin-kit/gpt-to-skill.html) page.
+1. **Put the skill where you work:** paste [skills/gpt-to-skill/SKILL.md](https://github.com/bwfnx/sbdc-ai-admin-kit/blob/main/skills/gpt-to-skill/SKILL.md) into a new ChatGPT Project's instructions, then download the repo zip (green **Code** button, **Download ZIP**; the GitHub folder pages have no download) and upload the files from its `references` and `scripts` folders. About fifteen minutes the first time. Details on the [GPT to Skill](https://bwfnx.github.io/sbdc-ai-admin-kit/gpt-to-skill.html) page.
 2. **Attach your GPT files** (Word is fine; one per GPT, named for the GPT), ten per message, and say *Triage my GPTs*; more than ten? say *more coming* on each batch and *that's all* on the last. The skill builds `my-gpts.md`, hands it back (keep it), then sorts it. No file comes back? It prints the combined file instead; save it as `my-gpts.md`.
 3. **Read the table.** Skill and Plugin are keepers; Agent means it needs more than a skill, park it; Merge and Retire are your call. Have the button? Press it on the keepers and go to door 1, step 2. No button? Convert one per chat with the cards; each comes back with a receipt. Flags mark what to check, not what to drop: `no-refusals` means the GPT never says what it won't do.
 
